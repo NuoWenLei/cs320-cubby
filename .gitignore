@@ -8,6 +8,11 @@ private
 cubby
 *__pycache__
 
+# Backend Data
+*glove.6B.50d.txt
+*word_embed.npy
+*word_index.json
+
 # dependencies
 node_modules
 .next
