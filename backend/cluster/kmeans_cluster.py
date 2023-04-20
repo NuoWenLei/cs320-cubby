@@ -1,6 +1,8 @@
 from sklearn.cluster import KMeans
-from typing import Union, List
+from typing import Union, List, Tuple
 import numpy as np
+import os
+import json
 
 class KMeansCluster():
 	def __init__(self,
@@ -22,7 +24,6 @@ class KMeansCluster():
 		- num_suggestions: int, number of clusters to suggest to each sample
 		- data: np.ndarray, samples of data to fit the model with
 		"""
-
 		assert num_suggestions <= num_groups, "Must have less number of suggestions than groups available"
 
 		self.num_groups = num_groups
@@ -32,6 +33,8 @@ class KMeansCluster():
 		if type(cluster_features) == int:
 			assert self.data_shape[1] >= cluster_features, "Number of cluster features must be less than or equal to number of available features"
 			cluster_features = np.random.choice(self.data_shape[1], cluster_features, replace = False)
+
+		self.feature_columns = np.array(cluster_features)
 		
 		assert self.data_shape[1] >= len(cluster_features), "Number of cluster features must be less than or equal to number of available features"
 
@@ -39,7 +42,7 @@ class KMeansCluster():
 		self.fit_kmeans(feature_data)
 		self.calc_cosine_similarity(feature_data)
 
-	def fit_kmeans(self, feature_data):
+	def fit_kmeans(self, feature_data: np.ndarray):
 		"""
 		Fits a KMeans clustering model on features of samples and produces suggestions of clusters for each sample.
 		Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
@@ -107,3 +110,27 @@ class KMeansCluster():
 		# (num_samples x num_suggestions) / (num_samples x num_suggestions) = (num_samples x num_suggestions)
 		self.cosine_sims = dot_prod / norms
 
+	def save_clusters(self) -> Tuple[str, str]:
+		"""
+		Saves relevant cluster data to the corresponding paths:
+		- cluster/clusters_today.npy: cluster centers
+		- cluster/feature_columns.json: list of column indices used as features
+
+		Args:
+		- self.properties
+			- self.cluster_centers: np.ndarray, cluster centers
+			- self.feature_columns: np.ndarray, feature column indices
+
+		Returns:
+		- Tuple[str, str], contains the cluster center file path (.npy) and feature column file path (.json)
+		"""
+		npy_path = os.path.join(os.path.dirname(__file__), "clusters_today.npy")
+		feature_path = os.path.join(os.path.dirname(__file__), "feature_columns.json")
+		with open(npy_path, "wb") as npy:
+			np.save(npy, self.cluster_centers)
+		
+		with open(feature_path, "w") as f:
+			json.dump(self.feature_columns.tolist(), f)
+
+		return (npy_path, feature_path)
+			
