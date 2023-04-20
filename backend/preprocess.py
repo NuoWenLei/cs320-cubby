@@ -4,7 +4,7 @@ import json
 def main():
 	embeddings_index = {}
 	
-	with open("glove.6B.50d.txt", "r") as f:
+	with open("embed_data/glove.6B.50d.txt", "r") as f:
 		for line in f:
 			word, coefs = line.split(maxsplit=1)
 			coefs = np.fromstring(coefs, "f", sep=" ")
@@ -25,10 +25,10 @@ def main():
 	
 	embeddings_matrix = embeddings[:len(word_indices), :].astype("float32")
 	print(f"Misses vs Hits: {misses} vs {hits}")
-	with open("word_embed.npy", "wb") as embed_npy:
+	with open("embed_data/word_embed.npy", "wb") as embed_npy:
 		np.save(embed_npy, embeddings_matrix)
 	
-	with open("word_index.json", "w") as index_json:
+	with open("embed_data/word_index.json", "w") as index_json:
 		json.dump(word_indices, index_json)
 
 if __name__ == "__main__":
