@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
-from .utils.firestoreHelper import *
-from .utils.constants import NUM_SUGGESTIONS
+from utils.firestoreHelper import *
+from utils.constants import NUM_SUGGESTIONS
 
 app = FastAPI()
 
