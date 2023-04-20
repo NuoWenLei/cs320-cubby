@@ -88,17 +88,19 @@ def text_to_embedding(
 	- np.ndarray, embedding of text of shape (50,)
 	"""
 	filtered_text = filter_to_letters(text.strip().lower())
-	words = filtered_text.split(" ")
+	words = [w for w in filtered_text.split(" ") if w != ""]
 	vec = np.zeros((word_embed.shape[1],))
 	if len(words) > 1:
 		missed = 0
 		for w in words:
-			if w not in stopwords:
-				index = word_index.get(w)
-				if index is None:
-					missed += 1
-					continue
-				vec += word_embed[index]
+			if w in stopwords:
+				missed += 1
+				continue
+			index = word_index.get(w)
+			if index is None:
+				missed += 1
+				continue
+			vec += word_embed[index]
 		vec = vec / (len(words) - missed)
 	else:
 		w = words[0]
