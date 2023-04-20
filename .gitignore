@@ -7,6 +7,7 @@ private
 *.DS_Store
 cubby
 *__pycache__
+.pytest_cache
 
 # Backend Data
 *glove.6B.50d.txt
