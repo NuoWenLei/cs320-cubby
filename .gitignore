@@ -4,13 +4,13 @@
 private
 
 # Python
-*.DS_Store
+.DS_Store
 cubby
-*__pycache__
+__pycache__
 .pytest_cache
 
 # Backend Data
-*glove.6B.50d.txt
+glove.6B.50d.txt
 
 # dependencies
 node_modules
