@@ -8,7 +8,7 @@ import {
   signOut as signOutFirebase,
 } from "firebase/auth"
 import { createContext, useContext, useEffect, useState } from "react";
-import { query, collection, where, getDocs, QueryDocumentSnapshot, DocumentData, Query } from "firebase/firestore";
+import { query, collection, where, getDocs, QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
 import { User } from "./types";
 
 
@@ -19,8 +19,6 @@ export interface AuthState {
   isLoading: boolean;
   /** The current user, if logged in. */
   user?: User;
-  /** All users for search */
-  allUsers?: User[];
   /** Signs the current user out, if logged in. */
   signOut: () => void;
   /** Signs a user in with Google. */
