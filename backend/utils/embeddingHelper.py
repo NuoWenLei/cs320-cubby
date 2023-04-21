@@ -5,24 +5,27 @@ lowercase_letters = "abcdefghijklmnopqrstuvwxyz "
 
 stopwords = {"ourselves", "hers", "between", "yourself", "but", "again", "there", "about", "once", "during", "out", "very", "having", "with", "they", "own", "an", "be", "some", "for", "do", "its", "yours", "such", "into", "of", "most", "itself", "other", "off", "is", "s", "am", "or", "who", "as", "from", "him", "each", "the", "themselves", "until", "below", "are", "we", "these", "your", "his", "through", "don", "nor", "me", "were", "her", "more", "himself", "this", "down", "should", "our", "their", "while", "above", "both", "up", "to", "ours", "had", "she", "all", "no", "when", "at", "any", "before", "them", "same", "and", "been", "have", "in", "will", "on", "does", "yourselves", "then", "that", "because", "what", "over", "why", "so", "can", "did", "not", "now", "under", "he", "you", "herself", "has", "just", "where", "too", "only", "myself", "which", "those", "i", "after", "few", "whom", "t", "being", "if", "theirs", "my", "against", "a", "by", "doing", "it", "how", "further", "was", "here", "than"} 
 
-def batch_text_to_embedding(batch: List[str]) -> List[np.ndarray]:
+def batch_text_to_embedding(batch: List[List[str]]) -> np.ndarray:
 	"""
 	Converts text batch each to an embedding.
 	If text is a sentence, then remove punctuation and stopwords, then average the word embedding.
 	If text is a word, then remove punctuation and return corresponding word embedding.
 
 	Args:
-	- batch: List[str], batch of text to convert to embedding
+	- batch: List[List[str]], batch of text to convert to embedding
 
 	Returns:
-	- List[np.ndarray], embeddings of text batch, each of shape (50,)
+	- np.ndarray, embeddings of text batch, each of shape (50,)
 	"""
 	word_embed = load_embedding()
 	word_index = load_word_index()
 
 	embeds = []
-	for text in batch:
-		embeds.append(text_to_embedding(text, word_index, word_embed))
+	for sample in batch:
+		sample_embeds = []
+		for text in sample:
+			sample_embeds.append(text_to_embedding(text, word_index, word_embed))
+		embeds.append(np.concatenate(sample_embeds, axis = 0))
 	
 	return embeds
 

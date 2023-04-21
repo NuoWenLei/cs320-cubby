@@ -1,5 +1,5 @@
 from .firebaseConfig import db
-from typing import Union, Callable
+from typing import Union, Callable, List, Dict
 
 def get_doc(collection: str, id: str, class_factory: Callable[[dict], object]) -> Union[object, None]:
 	"""
@@ -19,6 +19,40 @@ def get_doc(collection: str, id: str, class_factory: Callable[[dict], object]) -
 	doc = doc_ref.get()
 	if doc.exists:
 		doc_dict = doc.to_dict().copy()
-		doc["_id"] = id
+		doc_dict["_id"] = id
 		return class_factory(doc_dict)
 	return None
+
+def get_all_docs(collection: str, class_factory: Callable[[dict], object]) -> List[object]:
+	"""
+	Get all documents from Firestore collection and instantiate object as a class.
+
+	Args:
+	- collection: str, database collection name
+	- class_factory: Callable[[dict], object], function to instantiate object of a certain class
+
+	Returns:
+	- List[object], return list of object from class_factory
+	"""
+	collection_ref = db.collection(collection)
+	docs = collection_ref.stream()
+	objects = []
+	for doc in docs:
+		doc_dict = doc.to_dict().copy()
+		doc_dict["_id"] = doc.id
+		objects.append(class_factory(doc_dict))
+	return objects
+
+def add_doc(collection: str, item) -> str:
+	"""
+	Add item to Firebase collection.
+
+	Args:
+	- collection: str, database collection name
+	- item: any, object to add to database
+
+	Returns:
+	- str, id of object
+	"""
+	_, doc_ref = db.collection(collection).add(item)
+	return str(doc_ref.id)

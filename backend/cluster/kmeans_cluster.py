@@ -22,7 +22,7 @@ class KMeansCluster():
 			- if int, pick n random features to use as cluster features
 			- if List[int], use features with index in the list as cluster features
 		- num_suggestions: int, number of clusters to suggest to each sample
-		- data: np.ndarray, samples of data to fit the model with
+		- data: np.ndarray, samples of data to fit the model with, shape (num_users x num_features)
 		"""
 		assert num_suggestions <= num_groups, "Must have less number of suggestions than groups available"
 
