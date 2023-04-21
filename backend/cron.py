@@ -33,7 +33,7 @@ async def main():
 
 	user_ids = np.array(user_ids)
 	
-	# shape of user_embeds: List[(num_users x (50 * num_questions))]
+	# shape of user_embeds: (num_users x (50 * num_questions))
 	user_embeds: np.ndarray = batch_text_to_embedding(user_texts)
 	cluster_model = KMeansCluster(
 				num_groups=NUM_GROUPS,
