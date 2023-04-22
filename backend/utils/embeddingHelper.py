@@ -105,7 +105,8 @@ def text_to_embedding(
 				missed += 1
 				continue
 			vec += word_embed[index]
-		vec = vec / (len(words) - missed)
+		word_hits = float(len(words) - missed)
+		vec = vec / (word_hits if word_hits >= 1. else 1.)
 	elif len(words) == 1:
 		w = words[0]
 		index = word_index.get(w)
