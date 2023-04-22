@@ -27,7 +27,7 @@ def batch_text_to_embedding(batch: List[List[str]]) -> np.ndarray:
 			sample_embeds.append(text_to_embedding(text, word_index, word_embed))
 		embeds.append(np.concatenate(sample_embeds, axis = 0))
 	
-	return embeds
+	return np.array(embeds)
 
 def load_embedding() -> np.ndarray:
 	"""
@@ -106,10 +106,10 @@ def text_to_embedding(
 				continue
 			vec += word_embed[index]
 		vec = vec / (len(words) - missed)
-	else:
+	elif len(words) == 1:
 		w = words[0]
 		index = word_index.get(w)
-		if w is not None:
+		if index is not None:
 			vec = word_embed[index]
 	
 	return vec

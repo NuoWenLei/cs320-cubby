@@ -28,5 +28,13 @@ def test_generate_samples():
 	for sample in samples:
 		assert len(sample) == 3
 		assert len(sample["questions"]) == len(some_questions)
+
+def test_generate_samples_with_id():
+	some_questions = ["a", "b", "c", "d"]
+	generator = MockUserGenerator(question_order=some_questions, max_words_per_answer=5)
+	samples = generator.generate_multiple_samples(50, with_id = True)
+	for sample in samples:
+		assert len(sample) == 4
+		assert len(sample["questions"]) == len(some_questions)
 	
 	
