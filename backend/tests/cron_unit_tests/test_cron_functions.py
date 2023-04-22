@@ -1,4 +1,4 @@
-from cron import extract_text_ids, fit_model
+from cron_functions.cronHelper import extract_text_ids, fit_model
 from mock_data.mock_generator import MockUserGenerator
 from utils.firestoreClasses import UserDoc
 import numpy as np
@@ -27,7 +27,7 @@ def test_model_fit():
 	samples = generator.generate_multiple_samples(50, with_id = True)
 	docs = [UserDoc.from_dict(sample) for sample in samples]
 	_, user_texts = extract_text_ids(docs, some_questions)
-	cluster_model, (group_indices, counts) = fit_model(user_texts)
+	cluster_model, _ = fit_model(user_texts)
 
 	# Suggestion shape
 	assert cluster_model.suggestions.shape[0] == 50
