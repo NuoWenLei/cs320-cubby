@@ -1,7 +1,7 @@
 from cluster.kmeans_cluster import KMeansCluster
 from utils.firestoreHelper import get_all_docs, add_doc
 from utils.firestoreClasses import UserDoc
-from utils.constants import QUESTION_ORDER, NUM_GROUPS, NUM_SUGGESTIONS, MIN_MEMBER_PER_GROUP
+from utils.constants import QUESTION_ORDER, NUM_GROUPS, NUM_SUGGESTIONS, NUM_FEATURES, MIN_MEMBER_PER_GROUP
 from utils.embeddingHelper import batch_text_to_embedding
 import numpy as np, json, os
 
@@ -37,13 +37,13 @@ async def main():
 	user_embeds: np.ndarray = batch_text_to_embedding(user_texts)
 	cluster_model = KMeansCluster(
 				num_groups=NUM_GROUPS,
-				cluster_features = 50,
+				cluster_features = NUM_FEATURES,
 				num_suggestions=NUM_SUGGESTIONS,
 				data = user_embeds)
 	
 	cluster_model.save_clusters()
 
-	group_indices, counts = np.unique(cluster_model.suggestions.reshape((-1, )))
+	group_indices, counts = np.unique(cluster_model.suggestions.reshape((-1, )), return_counts = True)
 
 	# TODO: Do we filter out new groups with only 1 match?
 	# group_indices[counts >= MIN_MEMBER_PER_GROUP]
