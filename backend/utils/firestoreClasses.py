@@ -8,7 +8,7 @@ class UserDoc:
 		self.name = attributes.get("name")
 		self.email = attributes.get("email")
 		self._id = attributes.get("_id")
-		self.question_answers = attributes.get("questions")
+		self.question_answers = attributes.get("questions").lower() if attributes.get("questions") is not None else None
 
 	@property
 	def email(self) -> str:
