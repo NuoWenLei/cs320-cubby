@@ -38,7 +38,7 @@ class MockUserGenerator:
 		num_words = int(np.random.random() * self.max_words_per_answer) + 1
 		return " ".join(self.get_random_words(num_words))
 	
-	def generate_sample(self) -> Dict[str, object]:
+	def generate_sample(self, with_id: bool = False) -> Dict[str, object]:
 		"""
 		Generates a random user sample.
 
@@ -52,17 +52,23 @@ class MockUserGenerator:
 		"""
 		num_words_name = int(np.random.random() * self.max_words_per_answer) + 1
 		random_name_words = self.get_random_words(num_words_name)
+		random_id = "_".join(self.get_random_words(15))
 		qa_map = {}
 		for q in self.question_order:
 			qa_map[q] = self.get_random_answer()
 
-		return {
+		sample = {
 			"name": " ".join(random_name_words),
 			"email": f'{"_".join(random_name_words)}@brown.edu',
 			"questions": qa_map
 		}
 
-	def generate_multiple_samples(self, num_samples: int) -> List[Dict[str, object]]:
+		if with_id:
+			sample["_id"] = random_id
+
+		return sample
+
+	def generate_multiple_samples(self, num_samples: int, with_id: bool = False) -> List[Dict[str, object]]:
 		"""
 		Generates n random user samples where n is specified by the parameter "num_samples".
 
@@ -72,4 +78,4 @@ class MockUserGenerator:
 		Returns:
 		- List[Dict[str, object]], list of user sample maps
 		"""
-		return [self.generate_sample() for _ in range(num_samples)]
+		return [self.generate_sample(with_id=with_id) for _ in range(num_samples)]

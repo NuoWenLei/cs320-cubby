@@ -1,6 +1,29 @@
 from typing import Dict
 
-class UserDoc:
+class Freezer:
+    '''
+	Freeze any class, such that instantiated
+    objects become immutable.
+    
+    Source: https://medium.datadriveninvestor.com/immutability-in-python-d57a3b23f336
+    '''
+    
+    _frozen = False
+    
+    def __init__(self):
+        self._frozen = True
+	
+    def __delattr__(self, *args, **kwargs):
+        if self._frozen:
+            raise AttributeError('This object is frozen!')
+        object.__delattr__(self, *args, **kwargs)
+	
+    def __setattr__(self, *args, **kwargs):
+        if self._frozen:
+            raise AttributeError('This object is frozen!')
+        object.__setattr__(self, *args, **kwargs)
+
+class UserDoc(Freezer):
 	"""
 	UserDoc represents the class of the data stored in the Firebase User collection.
 	"""
@@ -8,24 +31,8 @@ class UserDoc:
 		self.name = attributes.get("name")
 		self.email = attributes.get("email")
 		self._id = attributes.get("_id")
-		self.question_answers = attributes.get("questions").lower() if attributes.get("questions") is not None else None
-
-	@property
-	def email(self) -> str:
-		return self.email
-	
-	@property
-	def _id(self) -> str:
-		return self._id
-	
-	@property 
-	def name(self) -> str:
-		return self.name
-	
-	@property
-	def question_answers(self) -> Dict[str, str]:
-		return self.question_answers
-	
+		self.question_answers = attributes.get("questions")
+		super().__init__()
 	
 	@staticmethod
 	def from_dict(attributes: dict):
