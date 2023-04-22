@@ -33,6 +33,7 @@ def load_embedding() -> np.ndarray:
 	"""
 	Loads embedding from embedding file.
 	Embedding is taken from the pre-trained GloVe embeddings with 50 dimensions.
+	Learn more about GloVe here: https://nlp.stanford.edu/projects/glove/
 
 	Args:
 	- None
