@@ -1,4 +1,4 @@
-from ...utils.embeddingHelper import *
+from utils.embeddingHelper import *
 
 def test_embed_shape():
     embed = load_embedding()

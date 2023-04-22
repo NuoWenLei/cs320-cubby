@@ -1,4 +1,4 @@
-from ...utils.embeddingHelper import filter_to_letters
+from utils.embeddingHelper import filter_to_letters
 
 def test_filter_lowercase_letters():
     string = "I lOve to eAt Food"

@@ -1,4 +1,4 @@
-from ...mock_data.mock_generator import MockUserGenerator
+from mock_data.mock_generator import MockUserGenerator
 
 def test_random_words_less_than_or_equal_max():
 	some_questions = ["a", "b", "c", "d"]
