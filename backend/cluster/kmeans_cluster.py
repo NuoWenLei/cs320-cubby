@@ -40,7 +40,7 @@ class KMeansCluster():
 
 		feature_data = data[:, cluster_features]
 		self.fit_kmeans(feature_data)
-		self.calc_cosine_similarity(feature_data)
+		self.calc_euclidean_distance_score()
 
 	def fit_kmeans(self, feature_data: np.ndarray):
 		"""
@@ -65,7 +65,13 @@ class KMeansCluster():
 		cluster_distance = kmeans.fit_transform(feature_data)
 		self.cluster_centers = kmeans.cluster_centers_
 
-		self.suggestions = np.argsort(cluster_distance, axis = 1)[:, :self.num_suggestions]
+		sorted_suggestions = np.argsort(cluster_distance, axis = 1)
+
+		self.suggestions = sorted_suggestions[:, :self.num_suggestions]
+		self.cluster_distance_suggestions = np.take_along_axis(
+			cluster_distance,
+			sorted_suggestions,
+			axis=0)[:, :self.num_suggestions]
 	
 	def calc_cosine_similarity(self, feature_data: np.ndarray):
 		"""
@@ -79,7 +85,7 @@ class KMeansCluster():
 		- feature_data: np.ndarray, features of samples with shape (num_samples x num_features)
 
 		Returns:
-		- self.cosine_sims: np.ndarray, cosine similarity between each sample and all their suggested cluster centers
+		- self.sims: np.ndarray, cosine similarity between each sample and all their suggested cluster centers
 										with shape (num_samples x num_suggestions)
 		"""
 		# Shapes of data:
@@ -108,7 +114,24 @@ class KMeansCluster():
 
 		# Calculate cosine similarities through elementwise division
 		# (num_samples x num_suggestions) / (num_samples x num_suggestions) = (num_samples x num_suggestions)
-		self.cosine_sims = dot_prod / norms
+		self.sims = dot_prod / norms
+
+	def calc_euclidean_distance_score(self):
+		"""
+		Calculates the euclidean distance score between every sample and all of their suggested cluster centers.
+		More information on Euclidean Distance score: https://stats.stackexchange.com/questions/53068/euclidean-distance-score-and-similarity
+
+		Args:
+		- self properties
+			- cluster_centers: np.ndarray, centers of clusters with shape (num_groups x num_features)
+			- suggestions: np.ndarray, array of suggested cluster indices for each sample with shape (num_samples x num_suggestions)
+		- feature_data: np.ndarray, features of samples with shape (num_samples x num_features)
+
+		Returns:
+		- self.sims: np.ndarray, distance similarity between each sample and all their suggested cluster centers
+										with shape (num_samples x num_suggestions)
+		"""
+		self.sims = 1. / (1. + self.cluster_distance_suggestions)
 
 	def save_clusters(self) -> Tuple[str, str]:
 		"""

@@ -34,8 +34,8 @@ def test_model_fit():
 	assert cluster_model.suggestions.shape[1] == cluster_model.num_suggestions
 
 	# Cosine similarity shape
-	assert cluster_model.suggestions.shape[0] == cluster_model.cosine_sims.shape[0]
-	assert cluster_model.suggestions.shape[1] == cluster_model.cosine_sims.shape[1]
+	assert cluster_model.suggestions.shape[0] == cluster_model.sims.shape[0]
+	assert cluster_model.suggestions.shape[1] == cluster_model.sims.shape[1]
 
 	# Cosine similarity always lower than 100%
-	assert (cluster_model.cosine_sims <= 1.).all()
+	assert (cluster_model.sims <= 1.).all()

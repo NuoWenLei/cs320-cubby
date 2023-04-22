@@ -56,7 +56,7 @@ async def main():
 		matched_user_suggestions = cluster_model.suggestions[matched_indices]
 
 		# get corresponding similarity scores
-		matched_similarities = cluster_model.cosine_sims[matched_indices]
+		matched_similarities = cluster_model.sims[matched_indices]
 
 		# add group invitations for each user matched
 		for _id, matched_suggestions, sims in zip(
