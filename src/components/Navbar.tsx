@@ -3,6 +3,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { AuthState, useAuth } from '@/utils/firebaseFunctions'
+import { User } from '@/utils/types'
+import { toast } from 'react-toastify'
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: false },
@@ -18,6 +20,37 @@ function classNames(...classes: string[]) {
 export default function Navbar() {
 
 	const auth: AuthState = useAuth();
+
+  const signInFunction = async () => {
+    const res: User | boolean = await auth.signInWithGoogle();
+    if (typeof res == "boolean") {
+      if (res) {
+        // Authenticated by Google but no acount
+        toast.info('Please sign up first!', {
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+        } else {
+          // Unauthenticated due to not completing or failing authentication
+          toast.error('Authentication error: Please complete authentication!', {
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+        }
+    }
+  }
 
 	// https://tailwindui.com/components/application-ui/navigation/navbars
   return (
@@ -121,7 +154,9 @@ export default function Navbar() {
 								  :
 								  (
 								  <div className="hidden sm:flex flex-row w-full">
-								  <div className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+								  <div 
+                  onClick={signInFunction}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
 									Sign in
 									</div>
 								  <div className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
@@ -153,8 +188,11 @@ export default function Navbar() {
               null :
               (
               <div className="space-y-1 px-2 pb-3 pt-2">
-              <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
-                  <Link href="#">Sign in</Link>
+              <button
+              onClick={signInFunction}
+              type="button"
+              className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
+                Sign in
                 </button>
                 <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
                   <Link href="#">Sign up</Link>
