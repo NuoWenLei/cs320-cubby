@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { AuthState, useAuth } from '@/utils/firebaseFunctions'
 import { User } from '@/utils/types'
@@ -54,7 +54,7 @@ export default function Navbar() {
 
 	// https://tailwindui.com/components/application-ui/navigation/navbars
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-gray-800" role="navigation">
       {({ open }: { open: boolean }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -115,7 +115,7 @@ export default function Navbar() {
 
 				{/* Profile dropdown */}
 				{auth.isAuthenticated ? 
-					            (<Menu as="div" className="relative ml-3">
+					    (<Menu as="div" className="relative ml-3">
 									<div>
 									  <Menu.Button className="flex rounded-full bg-gray-800 text-sm">
 										<span className="sr-only">Open user menu</span>
@@ -188,11 +188,11 @@ export default function Navbar() {
               null :
               (
               <div className="space-y-1 px-2 pb-3 pt-2">
-              <button
-              onClick={signInFunction}
-              type="button"
-              className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
-                Sign in
+                <button
+                onClick={signInFunction}
+                type="button"
+                className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
+                  Sign in
                 </button>
                 <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
                   <Link href="#">Sign up</Link>
