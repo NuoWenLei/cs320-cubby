@@ -1,8 +1,10 @@
-import Layout from '@/components/layouts'
 import '@/styles/globals.css'
 import { FirebaseAuthContext, useFirebaseAuth } from '@/utils/firebaseFunctions'
 import type { AppProps } from 'next/app'
 import Head from 'next/head';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '@/components/Navbar'
 
 export default function App({ Component, pageProps }: AppProps) {
   const firebaseAuthState = useFirebaseAuth();
@@ -11,9 +13,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Cubby</title>
       </Head>
-      <Layout>
+      <div className="h-screen flex flex-col">
+        <Navbar />
         <Component {...pageProps} />
-      </Layout>
+        <ToastContainer />
+      </div>
     </FirebaseAuthContext.Provider>
   )
 }

@@ -1,7 +1,7 @@
 export default function Profile() {
 	return (
-		<>
-		Profile page
-		</>
+		<div className="grow justify-center flex flex-col">
+			Profile
+		</div>
 	)
 }
