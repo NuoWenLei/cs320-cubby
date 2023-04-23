@@ -86,11 +86,13 @@ export default function Navbar() {
 									<div>
 									  <Menu.Button className="flex rounded-full bg-gray-800 text-sm">
 										<span className="sr-only">Open user menu</span>
-										<img
-										  className="h-8 w-8 rounded-full"
-										  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    <div className="h-8 w-8 overflow-hidden">
+                    <img
+										  className="h-full w-full rounded-full object-cover"
+										  src="https://www.budgetbytes.com/wp-content/uploads/2023/01/Air-Fryer-Chicken-Wings-plate.jpg"
 										  alt=""
 										/>
+                    </div>
 									  </Menu.Button>
 									</div>
 									<Transition
@@ -108,16 +110,6 @@ export default function Navbar() {
 										  <Link href="/profile">Your Profile</Link>
 										  </div>
 										</Menu.Item>
-										{/* <Menu.Item>
-										  {({ active }) => (
-											<a
-											  href="#"
-											  className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-											>
-											  Settings
-											</a>
-										  )}
-										</Menu.Item> */}
 										<Menu.Item>
 											<div className="block px-4 py-2 text-sm text-gray-700">
 											  <button type="button">Sign Out</button>
@@ -128,7 +120,7 @@ export default function Navbar() {
 								  </Menu>)
 								  :
 								  (
-								  <div className="hidden sm:block">
+								  <div className="hidden sm:flex flex-row w-full">
 								  <div className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
 									Sign in
 									</div>
@@ -136,31 +128,40 @@ export default function Navbar() {
 									Sign up
 									</div>
 								  </div>
-									)
-
-				}
+									)}
               </div>
             </div>
           </div>
 
           <Disclosure.Panel className="sm:hidden">
+            <div className="divide-y divide-slate-500">
             <div className="space-y-1 px-2 pb-3 pt-2">
 
 				{/* TODO: Add page navigation */}
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+                <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
+                  <Link href="#">Dashboard</Link>
+                </button>
+                <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
+                  <Link href="#">Something else</Link>
+                </button>
+                <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
+                  <Link href="#">hello</Link>
+                </button>
+            </div>
+            {
+              auth.isAuthenticated ?
+              null :
+              (
+              <div className="space-y-1 px-2 pb-3 pt-2">
+              <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
+                  <Link href="#">Sign in</Link>
+                </button>
+                <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
+                  <Link href="#">Sign up</Link>
+                </button>
+              </div>)
+            }
+            
             </div>
           </Disclosure.Panel>
         </>
