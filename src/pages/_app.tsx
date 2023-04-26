@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Cubby</title>
       </Head>
-      <div className="h-screen flex flex-col">
+      <div className="h-screen flex flex-col bg-orange-50">
         <Navbar />
         <Component {...pageProps} />
         <ToastContainer />
