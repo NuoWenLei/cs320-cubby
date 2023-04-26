@@ -57,7 +57,7 @@ export default function Navbar() {
     <Disclosure as="nav" className="bg-transparent" role="navigation">
       {({ open }: { open: boolean }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 text-black">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 text-orange-900">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -85,12 +85,14 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
 					{/* TODO: Add page navigations */}
-                    <Link href="#">
+                  {auth.isAuthenticated ? 
+                  (<>
+                  <Link href="#">
                       <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
                         Home
                         </div>
                         </Link>
-                        <Link href="#">
+                      <Link href="#">
                       <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
                         Communities
                         </div>
@@ -100,6 +102,7 @@ export default function Navbar() {
                         Chats
                         </div>
                         </Link>
+                  </>) : null}
                   </div>
                 </div>
               </div>
@@ -144,7 +147,7 @@ export default function Navbar() {
 										</Menu.Item>
 										<Menu.Item>
 											<div className="block px-4 py-2 text-sm text-gray-700">
-											  <button type="button">Sign Out</button>
+											  <button type="button" onClick={auth.signOut}>Sign Out</button>
 										  </div>
 										</Menu.Item>
 									  </Menu.Items>
@@ -169,36 +172,34 @@ export default function Navbar() {
 
           <Disclosure.Panel className="sm:hidden text-black">
             <div className="divide-y divide-slate-500">
-            <div className="space-y-1 px-2 pb-3 pt-2">
 
 				{/* TODO: Add page navigation */}
-                <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
+                {
+                  auth.isAuthenticated ?
+                  (<div className="space-y-1 px-2 pb-3 pt-2">
+
+                  <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
                   <Link href="#">Home</Link>
                 </button>
-                <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
+                  <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
                   <Link href="#">Communities</Link>
                 </button>
                 <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
                   <Link href="#">Chats</Link>
                 </button>
-            </div>
-            {
-              auth.isAuthenticated ?
-              null :
-              (
-              <div className="space-y-1 px-2 pb-3 pt-2">
-                <button
-                onClick={signInFunction}
-                type="button"
-                className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
-                  Sign in
-                </button>
-                <button type="button" className='text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'>
-                  <Link href="#">Sign up</Link>
-                </button>
-              </div>)
-            }
-            
+                  </div>) : (
+                    <div className="space-y-1 px-2 pb-3 pt-2">
+                      <button
+                      onClick={signInFunction}
+                      type="button"
+                      className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
+                        Sign in
+                      </button>
+                      <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
+                        <Link href="#">Sign up</Link>
+                      </button>
+                    </div>)
+                }
             </div>
           </Disclosure.Panel>
         </>
