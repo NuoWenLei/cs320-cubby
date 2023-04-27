@@ -76,13 +76,13 @@ async def main():
 				"similarity_matched": round(sims[matched_suggestions == group_index][0], 3)
 			})
 
-			# # add new invitiation 
-			# await add_doc("invitations", {
-			# 	"user_id": _id,
-			# 	"group_id": group_id,
-			# 	"status": "pending",
-			# 	"similarity_matched": sims[matched_suggestions == group_index][0]
-			# })
+			# add new invitiation 
+			await add_doc("invitations", {
+				"user_id": _id,
+				"group_id": group_id,
+				"status": "pending",
+				"similarity_matched": round(sims[matched_suggestions == group_index][0], 3)
+			})
 
 	print(f"Index to group id: {index2group_id}")
 
