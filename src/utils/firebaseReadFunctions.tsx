@@ -39,22 +39,31 @@ TODO:
 */
 
 export async function getGroupsfromGID(groupIDs: string[]): Promise<Group[]> {
-  let groupIDSet = new Set<Group>();
-  for (var groupID of groupIDs) {
-    let docRef = doc(firestore, "groups", groupID);
+  let idSet = new Set<string>();
+  let groups: Group[] = [];
 
+  for (var _id of groupIDs) {
+    idSet.add(_id);
+  }
+  for (var groupID of Array.from(idSet)) {
+
+	let docRef = doc(firestore, "groups", groupID);
+
+	//getDoc minimize get the set of group id first and iterate through that then
     try {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         let gp: Group = docSnap.data();
-        groupIDSet.add(gp);
+        gp["id"] = groupID
+		groups.push(gp);
+		
       }
     } catch (error) {
       console.log(error);
     }
   }
-  let groupArr: Group[] = Array.from(groupIDSet);
+  return groups; 
+  }
 
-  return groupArr;
-}
+
