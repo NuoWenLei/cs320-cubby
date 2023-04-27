@@ -49,7 +49,7 @@ async def main():
 		index2group_id[str(int(group_index))] = group_id
 		
 		# find users matched with group
-		matched_indices = cluster_model.suggestions[(cluster_model.suggestions == group_index).sum(axis = 1) > 0]
+		matched_indices = (cluster_model.suggestions == group_index).sum(axis = 1) > 0
 
 		if len(matched_indices) == 0:
 			continue
@@ -69,13 +69,20 @@ async def main():
 			matched_user_suggestions,
 			matched_similarities):
 
-			# add new invitiation 
-			await add_doc("invitations", {
+			print({
 				"user_id": _id,
 				"group_id": group_id,
 				"status": "pending",
 				"similarity_matched": sims[matched_suggestions == group_index][0]
 			})
+
+			# # add new invitiation 
+			# await add_doc("invitations", {
+			# 	"user_id": _id,
+			# 	"group_id": group_id,
+			# 	"status": "pending",
+			# 	"similarity_matched": sims[matched_suggestions == group_index][0]
+			# })
 
 	print(f"Index to group id: {index2group_id}")
 
