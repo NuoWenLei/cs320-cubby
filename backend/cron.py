@@ -1,7 +1,7 @@
 from utils.firestoreHelper import get_all_docs, add_doc
 from utils.firestoreClasses import UserDoc
 from utils.constants import QUESTION_ORDER
-from .cronHelper import extract_text_ids, fit_model
+from cron_functions.cronHelper import extract_text_ids, fit_model
 import json, os
 
 async def main():
