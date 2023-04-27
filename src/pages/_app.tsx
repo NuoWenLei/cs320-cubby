@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Cubby</title>
       </Head>
-      <div className={"h-screen flex flex-col bg-orange-50 " + caveat.className}>
+      <div className={"h-screen flex flex-col bg-orange-50 overflow-y-scroll " + caveat.className}>
         <Navbar />
         <Component {...pageProps} />
         <ToastContainer />
