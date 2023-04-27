@@ -22,7 +22,7 @@ export default function Navbar() {
     if (typeof res == "string") {
       // Authenticated by Google but no acount
       toast.info('Please sign up first!', {
-        position: "top-left",
+        position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -34,7 +34,7 @@ export default function Navbar() {
     } else if (typeof res == "boolean") {
       // Unauthenticated due to not completing or failing authentication
       toast.error('Authentication error: Please complete authentication!', {
-        position: "top-left",
+        position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
