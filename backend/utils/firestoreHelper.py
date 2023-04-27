@@ -55,5 +55,5 @@ async def add_doc(collection: str, item) -> str:
 	- str, id of object
 	"""
 	doc_ref = db.collection(collection).document()
-	await doc_ref.set(item)
+	doc_ref.set(item)
 	return str(doc_ref.id)
