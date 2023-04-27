@@ -12,3 +12,5 @@ QUESTION_ORDER = [
     "How do you usually spend your weekends?",
     "What kind of personality do you prefer in a friend?"
 ]
+
+NUM_FEATURES_PER_QUESTION = 50
