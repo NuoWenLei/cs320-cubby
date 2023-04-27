@@ -2,7 +2,7 @@ from utils.firestoreHelper import get_all_docs, add_doc
 from utils.firestoreClasses import UserDoc
 from utils.constants import QUESTION_ORDER
 from cron_functions.cronHelper import extract_text_ids, fit_model
-import json, os
+import json, os, asyncio
 
 async def main():
 	"""
@@ -80,5 +80,5 @@ async def main():
 	
 
 if __name__ == "__main__":
-	main()
+	asyncio.run(main())
 
