@@ -5,6 +5,7 @@ export type QuestionAnswerMap = {
 export type User = {
 	id?: string;
 	email?: string;
+	name?: string;
 	questions?: QuestionAnswerMap;
 	// TODO: add more fields
 	// Important: Fields must be the same in the python model too

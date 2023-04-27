@@ -18,33 +18,31 @@ export default function Navbar() {
 	const auth: AuthState = useAuth();
 
   const signInFunction = async () => {
-    const res: User | boolean = await auth.signInWithGoogle();
-    if (typeof res == "boolean") {
-      if (res) {
-        // Authenticated by Google but no acount
-        toast.info('Please sign up first!', {
-          position: "top-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          });
-        } else {
-          // Unauthenticated due to not completing or failing authentication
-          toast.error('Authentication error: Please complete authentication!', {
-            position: "top-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            });
-        }
+    const res: User | string | boolean = await auth.signInWithGoogle();
+    if (typeof res == "string") {
+      // Authenticated by Google but no acount
+      toast.info('Please sign up first!', {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    } else if (typeof res == "boolean") {
+      // Unauthenticated due to not completing or failing authentication
+      toast.error('Authentication error: Please complete authentication!', {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   }
 
