@@ -29,7 +29,7 @@ export default function Matchbar(
 				/>
 			</div>
 			<div className="basis-10/12 overflow-x-scroll">
-			<div className="flex flex-row w-full text-orange-950 m-5">
+			<div className="flex flex-row w-full text-orange-900 m-5">
 					{
 						items.map((item: number) => {
 							return (
