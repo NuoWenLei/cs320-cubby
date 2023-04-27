@@ -4,7 +4,10 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Navbar';
+import { Caveat } from 'next/font/google';
+
+const caveat = Caveat({subsets: ["cyrillic"]});
 
 export default function App({ Component, pageProps }: AppProps) {
   const firebaseAuthState = useFirebaseAuth();
@@ -13,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Cubby</title>
       </Head>
-      <div className="h-screen flex flex-col bg-orange-50">
+      <div className={"h-screen flex flex-col bg-orange-50 " + caveat.className}>
         <Navbar />
         <Component {...pageProps} />
         <ToastContainer />
