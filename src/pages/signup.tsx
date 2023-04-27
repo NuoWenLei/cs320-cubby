@@ -22,7 +22,7 @@ export default function Signup() {
 	async function callSignup() {
 		if (auth.isAuthenticated) {
 			toast.info("You're already logged in!", {
-				position: "top-left",
+				position: "bottom-left",
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
@@ -37,12 +37,12 @@ export default function Signup() {
 			if (typeof res == "string") {
 				const status = await createNewUser({
 					"email": res,
-					"name": name,
+					"name": name.trim(),
 					"questions": answerMap
 				});
 				if (status) {
 					toast.success("Account created! Welcome to Cubby!", {
-						position: "top-left",
+						position: "bottom-left",
 						autoClose: 5000,
 						hideProgressBar: false,
 						closeOnClick: true,
@@ -51,10 +51,10 @@ export default function Signup() {
 						progress: undefined,
 						theme: "colored",
 					});
-					router.push("/matches")
+					window.location.replace(window.location.href.replace(new RegExp("signup$"), ''));
 				} else {
 					toast.error("Account creation unsuccessful, check your network connection!", {
-						position: "top-left",
+						position: "bottom-left",
 						autoClose: 5000,
 						hideProgressBar: false,
 						closeOnClick: true,
@@ -67,7 +67,7 @@ export default function Signup() {
 			} else if (typeof res == "boolean") {
 				// Unauthenticated due to not completing or failing authentication
 				toast.error('Authentication error: Please complete authentication!', {
-					position: "top-left",
+					position: "bottom-left",
 					autoClose: 5000,
 					hideProgressBar: false,
 					closeOnClick: true,
@@ -78,7 +78,7 @@ export default function Signup() {
 					});
 			} else {
 				toast.info("Your account already exists! Logging you in...", {
-					position: "top-left",
+					position: "bottom-left",
 					autoClose: 5000,
 					hideProgressBar: false,
 					closeOnClick: true,
