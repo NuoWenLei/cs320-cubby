@@ -52,7 +52,7 @@ async def main():
 		# create group
 		group_id = await add_doc("groups", {
 			"friend_group": True,
-			""
+			"feature_dist": all_unique_features.tolist(),
 			"member_ids": []
 		})
 
