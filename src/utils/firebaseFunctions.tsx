@@ -22,7 +22,7 @@ export interface AuthState {
   /** Signs the current user out, if logged in. */
   signOut: () => void;
   /** Signs a user in with Google. */
-  signInWithGoogle: () => Promise<User | boolean>;
+  signInWithGoogle: () => Promise<User | string | boolean>;
 }
 
 const auth = getAuth(app);
@@ -41,9 +41,9 @@ function signOut() {
 /** Should have 3 possible results:
  * 1. Authenticated and logged in -> returns User with snapshot data
  * 2. Unauthenticated due to not completing or failing authentication -> returns false
- * 3. Authenticated by Google but no account -> returns true
+ * 3. Authenticated by Google but no account -> returns email
  */
-async function signInWithGoogle(): Promise<User | boolean> {
+async function signInWithGoogle(): Promise<User | string | boolean> {
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({'hd': 'brown.edu'});
   try {
@@ -55,7 +55,7 @@ async function signInWithGoogle(): Promise<User | boolean> {
     }
     const userSnapshot: QueryDocumentSnapshot<DocumentData> | null = await checkRegisterWithSnapshot(email);
     if (!(userSnapshot instanceof QueryDocumentSnapshot<DocumentData>)) {
-      return true;
+      return email;
     }
     return firebaseUserToUser(userSnapshot.data(), userSnapshot.id);
   } catch (e) {
