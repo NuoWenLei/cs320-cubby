@@ -55,4 +55,6 @@ export async function getGroupsfromGID(groupIDs: string[]): Promise<Group[]> {
     }
   }
   let groupArr: Group[] = Array.from(groupIDSet);
+
+  return groupArr;
 }
