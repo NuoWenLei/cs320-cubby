@@ -49,7 +49,7 @@ async def main():
 		index2group_id[group_index] = group_id
 		
 		# find users matched with group
-		matched_indices = cluster_model.suggestions[cluster_model.suggestions == group_index].sum(axis = 1) > 0
+		matched_indices = cluster_model.suggestions[(cluster_model.suggestions == group_index).sum(axis = 1) > 0]
 
 		# get corresponding user id
 		matched_user_ids = user_ids[matched_indices]
