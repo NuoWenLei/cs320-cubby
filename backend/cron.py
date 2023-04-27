@@ -43,6 +43,8 @@ async def main():
 
 	print(feature_counts.astype("float32") / float(NUM_FEATURES))
 
+	print(unique_features)
+
 	for f, c in zip(unique_features.tolist(), (feature_counts.astype("float32") / float(NUM_FEATURES)).tolist()):
 		all_unique_features[f] = c # round(c, 3) 
 
