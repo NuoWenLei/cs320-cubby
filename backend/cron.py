@@ -2,7 +2,7 @@ from utils.firestoreHelper import get_all_docs, add_doc
 from utils.firestoreClasses import UserDoc
 from utils.constants import QUESTION_ORDER
 from cron_functions.cronHelper import extract_text_ids, fit_model
-import json, os
+import json, os, asyncio
 
 async def main():
 	"""
@@ -24,7 +24,9 @@ async def main():
 	Returns:
 	- None
 	"""
-	user_samples = get_all_docs("users", UserDoc.from_dict)
+	user_samples = await get_all_docs("users", UserDoc.from_dict)
+
+	print(f"Number of user samples: {len(user_samples)}")
 	
 	user_ids, user_texts = extract_text_ids(user_samples, question_order=QUESTION_ORDER)
 
@@ -44,10 +46,13 @@ async def main():
 			"member_ids": []
 		})
 
-		index2group_id[group_index] = group_id
+		index2group_id[str(int(group_index))] = group_id
 		
 		# find users matched with group
-		matched_indices = cluster_model.suggestions[cluster_model.suggestions == group_index].sum(axis = 1) > 0
+		matched_indices = cluster_model.suggestions[(cluster_model.suggestions == group_index).sum(axis = 1) > 0]
+
+		if len(matched_indices) == 0:
+			continue
 
 		# get corresponding user id
 		matched_user_ids = user_ids[matched_indices]
@@ -65,12 +70,14 @@ async def main():
 			matched_similarities):
 
 			# add new invitiation 
-			add_doc("invitations", {
+			await add_doc("invitations", {
 				"user_id": _id,
 				"group_id": group_id,
 				"status": "pending",
 				"similarity_matched": sims[matched_suggestions == group_index][0]
 			})
+
+	print(f"Index to group id: {index2group_id}")
 
 	# Locally store index-to-group_firebase_id map
 	store_path = os.path.join(os.path.dirname(__file__), "cluster/index_to_group_id.json")
@@ -80,5 +87,5 @@ async def main():
 	
 
 if __name__ == "__main__":
-	main()
+	asyncio.run(main())
 

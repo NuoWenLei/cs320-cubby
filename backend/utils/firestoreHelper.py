@@ -1,7 +1,7 @@
 from .firebaseConfig import db
 from typing import Union, Callable, List, Dict
 
-def get_doc(collection: str, id: str, class_factory: Callable[[dict], object]) -> Union[object, None]:
+async def get_doc(collection: str, id: str, class_factory: Callable[[dict], object]) -> Union[object, None]:
 	"""
 	Get document from Firestore and instantiate object as a class.
 
@@ -16,14 +16,14 @@ def get_doc(collection: str, id: str, class_factory: Callable[[dict], object]) -
 		- if queried object does exist, return instance of object from class_factory
 	"""
 	doc_ref = db.collection(collection).document(id)
-	doc = doc_ref.get()
+	doc = await doc_ref.get()
 	if doc.exists:
 		doc_dict = doc.to_dict().copy()
 		doc_dict["_id"] = id
 		return class_factory(doc_dict)
 	return None
 
-def get_all_docs(collection: str, class_factory: Callable[[dict], object]) -> List[object]:
+async def get_all_docs(collection: str, class_factory: Callable[[dict], object]) -> List[object]:
 	"""
 	Get all documents from Firestore collection and instantiate object as a class.
 
@@ -43,7 +43,7 @@ def get_all_docs(collection: str, class_factory: Callable[[dict], object]) -> Li
 		objects.append(class_factory(doc_dict))
 	return objects
 
-def add_doc(collection: str, item) -> str:
+async def add_doc(collection: str, item) -> str:
 	"""
 	Add item to Firebase collection.
 
@@ -54,5 +54,6 @@ def add_doc(collection: str, item) -> str:
 	Returns:
 	- str, id of object
 	"""
-	_, doc_ref = db.collection(collection).add(item)
+	doc_ref = db.collection(collection).document()
+	doc_ref.set(item)
 	return str(doc_ref.id)
