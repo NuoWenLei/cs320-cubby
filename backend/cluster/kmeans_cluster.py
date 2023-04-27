@@ -59,8 +59,7 @@ class KMeansCluster():
 			- suggestions: np.ndarray, array of suggested cluster indices for each sample with shape (num_samples x num_suggestions)
 		"""
 		kmeans = KMeans(
-			n_clusters=self.num_groups,
-			init="random"
+			n_clusters=self.num_groups
 		)
 		cluster_distance = kmeans.fit_transform(feature_data)
 		self.cluster_centers = kmeans.cluster_centers_
