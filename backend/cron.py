@@ -73,7 +73,7 @@ async def main():
 				"user_id": _id,
 				"group_id": group_id,
 				"status": "pending",
-				"similarity_matched": sims[matched_suggestions == group_index][0]
+				"similarity_matched": round(sims[matched_suggestions == group_index][0], 3)
 			})
 
 			# # add new invitiation 
