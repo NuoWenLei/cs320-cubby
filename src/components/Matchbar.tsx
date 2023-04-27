@@ -23,7 +23,7 @@ export default function Matchbar(
 	}
 	return (
 		<div className="flex flex-row w-full justify-center text-black">
-			<div className="basis-1/12 flex flex-col justify-center">
+			<div className="basis-1/12 flex flex-col justify-center text-orange-900">
 				<ArrowBackIosIcon fontSize="large" className="ml-auto cursor-pointer"
 				onClick={indexLeft}
 				/>
@@ -35,7 +35,7 @@ export default function Matchbar(
 							return (
 								<div
 								onClick={() => {setIndex(1)}}
-								className={(index == 1 ? "border-orange-950 " : "border-transparent ") + "border-2 w-18 md:w-32 shrink-0 flex flex-col mr-6 md:mr-12 py-2 cursor-pointer"}>
+								className={(index == 1 ? "border-orange-900 " : "border-transparent ") + "border-2 w-18 md:w-32 shrink-0 flex flex-col mr-6 md:mr-12 p-2 cursor-pointer"}>
 									<div className="mx-auto text-center text-xl md:text-2xl">
 										<div className="h-12 w-12 md:h-20 md:w-20 rounded-full overflow-hidden mb-2 md:mb-4">
 											<img src="https://www.foodnetwork.com/content/dam/images/food/fullset/2019/2/19/1/FN_Air-Fryer-Chicken-Wings-H_s4x3.jpg"
@@ -50,7 +50,7 @@ export default function Matchbar(
 					}
 				</div>
 			</div>
-			<div className="basis-1/12 flex flex-col justify-center">
+			<div className="basis-1/12 flex flex-col justify-center text-orange-900">
 				<ArrowForwardIosIcon fontSize="large" className="mr-auto cursor-pointer"
 				onClick={indexRight}/>
 			</div>

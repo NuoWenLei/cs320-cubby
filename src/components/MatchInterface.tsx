@@ -27,7 +27,7 @@ export default function MatchInterface() {
 				</div>
 			</div>
 			<div className="basis-full md:basis-1/2 px-6">
-				<div className="w-full lg:w-11/12 xl:w-7/12 border-2 border-black text-orange-950 p-3 flex flex-col mx-auto">
+				<div className="w-full lg:w-11/12 xl:w-7/12 border-2 border-orange-900 text-orange-900 p-3 flex flex-col mx-auto">
 					<div className="text-xl xl:text-3xl w-full text-center mb-3">
 						Overview Cubs
 					</div>
