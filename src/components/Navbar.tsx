@@ -13,10 +13,6 @@ const navigation = [
   { name: 'Calendar', href: '#', current: false },
 ]
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function Navbar() {
 
 	const auth: AuthState = useAuth();
@@ -158,10 +154,10 @@ export default function Navbar() {
 								  <div className="hidden sm:flex flex-row w-full">
 								  <div 
                   onClick={signInFunction}
-                  className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
+                  className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium cursor-pointer">
 									Sign in
 									</div>
-								  <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
+								  <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium cursor-pointer">
 									Sign up
 									</div>
 								  </div>
