@@ -11,8 +11,16 @@ export type User = {
 }
 
 export type Invitation = {
+	id?: string;
 	group_id?: string;
 	similarity_matched?: number;
 	status?: string;
 	user_id?: string;
+}
+
+export type Group = {
+	id?: string;
+	feature_dist?: number[];
+	friend_group?: boolean;
+	member_ids?: string[];
 }
