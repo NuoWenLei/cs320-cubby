@@ -4,7 +4,7 @@ from utils.constants import QUESTION_ORDER
 from cron_functions.cronHelper import extract_text_ids, fit_model
 import json, os, asyncio
 
-async def main():
+def main():
 	"""
 	Function for daily data clustering, group creating and matching.
 
@@ -39,7 +39,7 @@ async def main():
 	for group_index in group_indices:
 
 		# create group
-		group_id = await add_doc("groups", {
+		group_id = add_doc("groups", {
 			"friend_group": True,
 			"member_ids": []
 		})
@@ -80,5 +80,5 @@ async def main():
 	
 
 if __name__ == "__main__":
-	asyncio.run(main())
+	main()
 
