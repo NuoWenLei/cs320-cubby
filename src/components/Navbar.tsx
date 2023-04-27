@@ -158,7 +158,7 @@ export default function Navbar() {
 									Sign in
 									</div>
 								  <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-md font-medium cursor-pointer">
-									Sign up
+									<Link href="/signup">Sign up</Link>
 									</div>
 								  </div>
 									)}
@@ -192,7 +192,7 @@ export default function Navbar() {
                         Sign in
                       </button>
                       <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
-                        <Link href="#">Sign up</Link>
+                        <Link href="/signup">Sign up</Link>
                       </button>
                     </div>)
                 }
