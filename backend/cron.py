@@ -35,7 +35,7 @@ async def main():
 	
 	cluster_model.save_clusters()
 
-	all_unique_features = np.zeros((len(QUESTION_ORDER), ), dtype="int32")
+	all_unique_features = np.zeros((len(QUESTION_ORDER), ), dtype="float32")
 
 	print(np.int32(cluster_model.feature_columns / float(NUM_FEATURES_PER_QUESTION)))
 
