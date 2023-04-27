@@ -4,7 +4,7 @@ from utils.constants import QUESTION_ORDER
 from cron_functions.cronHelper import extract_text_ids, fit_model
 import json, os, asyncio
 
-def main():
+async def main():
 	"""
 	Function for daily data clustering, group creating and matching.
 
@@ -24,7 +24,9 @@ def main():
 	Returns:
 	- None
 	"""
-	user_samples = get_all_docs("users", UserDoc.from_dict)
+	user_samples = await get_all_docs("users", UserDoc.from_dict)
+
+	print(f"Number of user samples: {len(user_samples)}")
 	
 	user_ids, user_texts = extract_text_ids(user_samples, question_order=QUESTION_ORDER)
 
@@ -39,7 +41,7 @@ def main():
 	for group_index in group_indices:
 
 		# create group
-		group_id = add_doc("groups", {
+		group_id = await add_doc("groups", {
 			"friend_group": True,
 			"member_ids": []
 		})
@@ -65,12 +67,14 @@ def main():
 			matched_similarities):
 
 			# add new invitiation 
-			add_doc("invitations", {
+			await add_doc("invitations", {
 				"user_id": _id,
 				"group_id": group_id,
 				"status": "pending",
 				"similarity_matched": sims[matched_suggestions == group_index][0]
 			})
+
+	print(f"Index to group id: {index2group_id}")
 
 	# Locally store index-to-group_firebase_id map
 	store_path = os.path.join(os.path.dirname(__file__), "cluster/index_to_group_id.json")
@@ -80,5 +84,5 @@ def main():
 	
 
 if __name__ == "__main__":
-	main()
+	asyncio.run(main())
 
