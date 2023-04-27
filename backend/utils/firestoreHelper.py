@@ -37,7 +37,7 @@ async def get_all_docs(collection: str, class_factory: Callable[[dict], object])
 	collection_ref = db.collection(collection)
 	docs = collection_ref.stream()
 	objects = []
-	async for doc in docs:
+	for doc in docs:
 		doc_dict = doc.to_dict().copy()
 		doc_dict["_id"] = doc.id
 		objects.append(class_factory(doc_dict))
