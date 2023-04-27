@@ -37,10 +37,14 @@ async def main():
 
 	all_unique_features = np.zeros((len(QUESTION_ORDER), ), dtype="int32")
 
+	print(np.int32(cluster_model.feature_columns / float(NUM_FEATURES_PER_QUESTION)))
+
 	(unique_features, feature_counts) = np.unique(np.int32(cluster_model.feature_columns / float(NUM_FEATURES_PER_QUESTION)), return_counts=True)
 
-	for f, c in zip(unique_features.tolist(), (feature_counts.astype("float32") / NUM_FEATURES).tolist()):
-		all_unique_features[f] = round(c, 3) 
+	print(feature_counts.astype("float32") / float(NUM_FEATURES))
+
+	for f, c in zip(unique_features.tolist(), (feature_counts.astype("float32") / float(NUM_FEATURES)).tolist()):
+		all_unique_features[f] = c # round(c, 3) 
 
 	print(all_unique_features)
 
