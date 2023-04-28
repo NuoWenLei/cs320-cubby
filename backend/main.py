@@ -8,6 +8,13 @@ from cron_functions.cronHelper import extract_text_ids
 import json, os
 import numpy as np
 
+
+# Local run command:
+# uvicorn main:app --reload
+
+# Server run command:
+# uvicorn main:app --host 0.0.0.0
+
 app = FastAPI()
 
 @app.get("/")
