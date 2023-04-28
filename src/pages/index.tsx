@@ -1,6 +1,8 @@
+import { AuthState, useAuth } from '@/utils/firebaseFunctions';
 import Link from 'next/link';
 
 export default function Home() {
+  const auth: AuthState = useAuth();
   return (
     <main className={"grow flex flex-col justify-center "}>
 
@@ -14,9 +16,16 @@ export default function Home() {
           />
         </div>
         <div className="mx-auto text-orange-900 text-lg">
-          <Link href="/matches">
-            Start matching <span>&#8594;</span>
-          </Link>
+          {
+            auth.isAuthenticated ?
+            (
+              <Link href="/matches">
+              Start matching <span>&#8594;</span>
+            </Link>
+            ) : <Link href="/signup">
+                  Start matching <span>&#8594;</span>
+                </Link>
+          }
         </div>
       
     </main>

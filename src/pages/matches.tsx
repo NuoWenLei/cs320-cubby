@@ -170,7 +170,7 @@ export default function Matches() {
 					joinGroup={joinGroup}
 					rejectGroup={rejectGroup}/>
 					<Matchbar index={index} setIndex={setIndex} items={invitations}/>
-				</div>) : <div className="text-6xl text-orange-900 ">You have no more pending matches today, please wait till tomorrow for new matches!</div>
+				</div>) : <div className="text-center mx-auto text-2xl lg:text-6xl text-orange-900 w-2/3">You have no more pending matches today, please wait till tomorrow for new matches!</div>
 				}
 			</>)
 			}

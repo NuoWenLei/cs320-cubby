@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from utils.matchHelper import calculate_suggestions_and_similarities, doc_to_id_and_embed
 from utils.firestoreHelper import *
 from utils.constants import NUM_SUGGESTIONS
@@ -14,6 +15,16 @@ import json, os
 # uvicorn main:app --host 0.0.0.0
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():

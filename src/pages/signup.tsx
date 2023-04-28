@@ -45,7 +45,14 @@ export default function Signup() {
 	}
 
 	async function getNewMatches(user_id: string) {
-		return await fetch(`${API_URL}/friendMatches?user_id=${user_id}&num_suggestions=4`)
+		const queryUrl = `${API_URL}/friendMatches?user_id=${user_id}&num_suggestions=4`;
+		console.log(queryUrl);
+		return await fetch(queryUrl, {
+			method: "GET",
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			}
+		});
 	}
 
 	async function callSignup() {
