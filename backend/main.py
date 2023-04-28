@@ -22,7 +22,7 @@ async def root():
 # - Interest Group Name Search
 # - New user match to groups
 
-@app.get("/friendMatches/")
+@app.get("/friendMatches")
 async def friend_matches(user_id: str = None, num_suggestions: int = NUM_SUGGESTIONS):
 	"""
 	Create new group suggestions for user.
