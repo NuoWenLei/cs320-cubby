@@ -9,10 +9,10 @@ TODO:
 - create new user ((user_object: User) => Promise<boolean>)
 */
 
-export async function createNewUser(user_object: User): Promise<boolean> {
+export async function createNewUser(user_object: User): Promise<string | boolean> {
 	try {
-		await addDoc(collection(firestore, "users"), user_object);
-		return true;
+		const newRef = await addDoc(collection(firestore, "users"), user_object);
+		return newRef.id;
 	} catch (_) {
 		return false;
 	}

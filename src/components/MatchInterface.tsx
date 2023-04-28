@@ -1,15 +1,18 @@
-export default function MatchInterface() {
+import { QuestionWithExamples, questions } from "@/utils/constants";
+import { Group, Invitation } from "@/utils/types";
 
-	const questions = [1, 2, 3, 4, 5, 6, 7, 8];
-	const obj = {
-		imageUrl: "https://www.restlesschipotle.com/wp-content/uploads/2022/08/Crispy-Oven-Baked-Chicken-Wings-feat2-500x500.jpg",
-		similarity_matched: 0.231,
+export interface MatchInterfaceProps {
+	invite: Invitation;
+	group: Group;
+	joinGroup: ((arg1: string | undefined, arg2: string | undefined) => Promise<void>);
+	rejectGroup: ((arg1: string | undefined) => Promise<void>);
+}
 
-	}
+export default function MatchInterface(
+	{ invite, group, joinGroup, rejectGroup } : MatchInterfaceProps
+) {
 
-	function joinGroup() {
-
-	}
+	const imageUrl = "https://www.restlesschipotle.com/wp-content/uploads/2022/08/Crispy-Oven-Baked-Chicken-Wings-feat2-500x500.jpg";
 
 	return (
 		<div className="w-full flex flex-row md:px-10 mb-2 xl:mb-4">
@@ -18,11 +21,21 @@ export default function MatchInterface() {
 					<div className="overflow-hidden rounded-full mb-4">
 						<img
 						className="h-full w-full object-cover object-center"
-						src={obj.imageUrl}/>
+						src={imageUrl}/>
 					</div>
-					<div className="flex flex-row justify-center">
-						<button type="button" className="p-2 bg-orange-950 text-white text-center text-xl"
-						onClick={joinGroup}>JOIN GROUP</button>
+					<div className="flex flex-col lg:flex-row justify-center">
+						<button type="button" className="p-2 bg-orange-900 text-white text-center text-xl rounded-lg m-2"
+						onClick={
+							() => {
+								joinGroup(group.id, invite.id)
+							}
+						}>JOIN GROUP</button>
+						<button type="button" className="p-2 bg-rose-700 text-white text-center text-xl rounded-lg m-2"
+						onClick={
+							() => {
+								rejectGroup(invite.id)
+							}
+						}>DECLINE</button>
 					</div>
 				</div>
 			</div>
@@ -34,28 +47,43 @@ export default function MatchInterface() {
 					<div className="h-20 w-20 overflow-hidden rounded-full mb-3 mx-auto md:hidden">
 						<img
 						className="h-full w-full object-cover object-center"
-						src={obj.imageUrl}/>
+						src={imageUrl}/>
 					</div>
 					<div className="text-xl xl:text-4xl w-full text-center mb-3">
-						<span className="text-4xl xl:text-6xl">{obj.similarity_matched * 100.}%</span> match
+						<span className="text-4xl xl:text-6xl">{invite.similarity_matched ? ((invite.similarity_matched * 100.).toFixed(1)) : 0.}%</span> match
 					</div>
 					<div className="text-xl w-full text-center mb-3">
 						matching distribution
 					</div>
 					<div className="text-md xl:text-lg w-full text-center flex flex-row flex-wrap lg:flex-col lg:flex-nowrap justify-center mb-3 md:mb-0">
 						{
-							questions.map((item: any, i: number) => {
+							group.feature_dist ? (group.feature_dist.map((percent: number, i: number) => {
 								return (
 								<>
-									<div className="mr-4 min-[423px]:flex hidden lg:mx-auto"> Question {i + 1}: 15%</div>
-									<div className="mr-4 flex min-[423px]:hidden"> Q{i + 1}: 15%</div>
+									<div className="mr-4 min-[423px]:flex hidden lg:mx-auto"> Question {i + 1}: {(percent * 100.).toFixed(1)}%</div>
+									<div className="mr-4 flex min-[423px]:hidden"> Q{i + 1}: {(percent * 100.).toFixed(1)}%</div>
 								</>
 								)
-							}) 
+							})) : (
+									<div className="mr-4 min-[423px]:flex hidden lg:mx-auto">
+										No feature distribution for this group.
+										</div>
+								)
 						}
 					</div>
-					<div className="flex md:hidden text-md text-center justify-center">
-						<button type="button" className="px-3 py-1 bg-orange-950 text-white rounded-md">JOIN GROUP</button>
+					<div className="flex flex-col md:hidden text-md text-center justify-center">
+						<button type="button" className="px-3 py-1 bg-orange-900 text-white rounded-md rounded-lg m-2"
+						onClick={
+							() => {
+								joinGroup(group.id, invite.id)
+							}
+						}>JOIN GROUP</button>
+						<button type="button" className="px-3 py-1 bg-rose-700 text-white rounded-md rounded-lg m-2"
+						onClick={
+							() => {
+								rejectGroup(invite.id)
+							}
+						}>DECLINE</button>
 					</div>
 				</div>
 			</div>

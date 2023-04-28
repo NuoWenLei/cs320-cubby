@@ -13,3 +13,5 @@ export type QuestionWithExamples = {
 	q: string;
 	example: string;
 }
+
+export const API_URL = "http://139.144.57.146:8000";

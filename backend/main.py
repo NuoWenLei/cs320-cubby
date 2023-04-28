@@ -64,11 +64,8 @@ async def friend_matches(user_id: str = None, num_suggestions: int = NUM_SUGGEST
 
 	cluster_path = os.path.join(os.path.dirname(__file__), "cluster/clusters_today.npy")
 
-	if not os.path.exists(column_path):
-		return None
-	
-	if not os.path.exists(cluster_path):
-		return None
+	if not (os.path.exists(column_path) and os.path.exists(cluster_path)):
+		raise HTTPException(status_code = 404, detail = "Serverside data not found")
 	
 	sorted_suggestions, sorted_sims = calculate_suggestions_and_similarities(column_path, cluster_path, answer_embed)
 
