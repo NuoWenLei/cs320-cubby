@@ -13,27 +13,12 @@ const caveat = Caveat({subsets: ["cyrillic"]});
 
 export default function App({ Component, pageProps }: AppProps) {
   const firebaseAuthState = useFirebaseAuth();
-  console.log(getUserData("Muhiim_Ali"));
-   const user: User = {
-     id: "123",
-     email: "johndoe@example.com",
-     questions: {
-       "What is your name?": "John Doe",
-       "What is your favorite color?": "Blue",
-       "What is your favorite food?": "Pizza",
-     },
-    
-   };
-    console.log(updateUserProfile("Muhiim_Ali", user));
   return (
     <FirebaseAuthContext.Provider value={firebaseAuthState}>
       <Head>
         <title>Cubby</title>
       </Head>
-      <div className={"h-screen flex flex-col bg-orange-50 overflow-y-scroll " + caveat.className}>
-      <div
-        className={"h-screen flex flex-col bg-orange-50 " + caveat.className}
-      >
+      <div className={"h-screen flex flex-col bg-orange-50 " + caveat.className}>
         <Navbar />
         <Component {...pageProps} />
         <ToastContainer />
