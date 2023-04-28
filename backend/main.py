@@ -1,13 +1,10 @@
 from fastapi import FastAPI, HTTPException
-from utils.embeddingHelper import calculate_suggestions_and_similarities, doc_to_id_and_embed
+from utils.matchHelper import calculate_suggestions_and_similarities, doc_to_id_and_embed
 from utils.firestoreHelper import *
-from utils.constants import NUM_SUGGESTIONS, QUESTION_ORDER
+from utils.constants import NUM_SUGGESTIONS
 from utils.firestoreClasses import UserDoc
-from utils.embeddingHelper import batch_text_to_embedding
 from mock_data.mock_generator import MockUserGenerator
-from cron_functions.cronHelper import extract_text_ids
 import json, os
-import numpy as np
 
 
 # Local run command:
