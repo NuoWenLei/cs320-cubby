@@ -1,4 +1,4 @@
-import { QuestionWithExamples, questions } from "@/utils/constants";
+import { API_URL, QuestionWithExamples, questions } from "@/utils/constants";
 import { AuthState, useAuth } from "@/utils/firebaseFunctions";
 import { createNewUser } from "@/utils/firebaseWriteFunctions";
 import { QuestionAnswerMap, User } from "@/utils/types";
@@ -44,6 +44,10 @@ export default function Signup() {
 		return valid;
 	}
 
+	async function getNewMatches(user_id: string) {
+		return await fetch(`${API_URL}/friendMatches?user_id=${user_id}&num_suggestions=4`)
+	}
+
 	async function callSignup() {
 		if (auth.isAuthenticated) {
 			toast.info("You're already logged in!", {
@@ -65,12 +69,12 @@ export default function Signup() {
 					return;
 				}
 
-				const status = await createNewUser({
+				const new_id = await createNewUser({
 					"email": res,
 					"name": name.trim(),
 					"questions": answerMap
 				});
-				if (status) {
+				if (typeof new_id == "string") {
 					toast.success("Account created! Welcome to Cubby!", {
 						position: "bottom-left",
 						autoClose: 5000,
@@ -81,6 +85,22 @@ export default function Signup() {
 						progress: undefined,
 						theme: "colored",
 					});
+
+					const response = await getNewMatches(new_id);
+					if (response.status == 200) {
+						const results = await response.json();
+						toast.info(`We have just matched you with ${results.added_groups ? results.added_groups.length : 0} groups`, {
+							position: "bottom-left",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: "colored",
+						});
+					}
+
 					window.location.replace(window.location.href.replace(new RegExp("signup$"), ''));
 				} else {
 					toast.error("Account creation unsuccessful, check your network connection!", {

@@ -11,13 +11,20 @@ import {
 import { firestore } from "./firebaseConfig";
 import { Invitation, Group } from "./types";
 
+
+/*
+(Async) Get all invitations of a certain status of a user.
+
+(user_id: string, status: string) => Promise<Invitation[]>
+*/
 export async function getInvitationsOfUser(
-  user_id: string
+  user_id: string,
+  status: string
 ): Promise<Invitation[]> {
   const q = query(
     collection(firestore, "invitations"),
     where("user_id", "==", user_id),
-    where("status", "==", "accepted")
+    where("status", "==", status)
   );
 
   const snapshots = await getDocs(q);
@@ -27,17 +34,17 @@ export async function getInvitationsOfUser(
   snapshots.forEach((invite: QueryDocumentSnapshot<DocumentData>) => {
     let inviteData: Invitation = invite.data();
     inviteData["id"] = invite.id;
-    snapshotData.push();
+    snapshotData.push(inviteData);
   });
 
   return snapshotData;
 }
 
 /*
-TODO:
-- get data of groups ()given a list of group ids (string[])
-*/
+(Async) Get data of groups given a list of group ids.
 
+(groupIDs: string[]) => Promise<Group[]>
+*/
 export async function getGroupsfromGID(groupIDs: string[]): Promise<Group[]> {
   let idSet = new Set<string>();
   let groups: Group[] = [];
@@ -56,7 +63,7 @@ export async function getGroupsfromGID(groupIDs: string[]): Promise<Group[]> {
       if (docSnap.exists()) {
         let gp: Group = docSnap.data();
         gp["id"] = groupID
-		groups.push(gp);
+		    groups.push(gp);
 		
       }
     } catch (error) {
@@ -64,6 +71,6 @@ export async function getGroupsfromGID(groupIDs: string[]): Promise<Group[]> {
     }
   }
   return groups; 
-  }
+}
 
 
