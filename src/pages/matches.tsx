@@ -9,17 +9,21 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+interface GroupMap {
+	[key: string]: Group
+}
+
 export default function Matches() {
 	const [index, setIndex] = useState<number>(0);
 	const [invitations, setInvitations] = useState<Invitation[]>([]);
-	const [groups, setGroups] = useState<Group[]>([]);
+	const [groups, setGroups] = useState<GroupMap>({});
 	const [loading, setLoading] = useState<boolean>(true);
 
 	const auth: AuthState = useAuth();
 	const router = useRouter();
 
 	function unauthenticatedRedirect() {
-		toast.error('Not authenticated yet, please sign up first!', {
+		toast.info('Please sign up first!', {
 			position: "bottom-left",
 			autoClose: 5000,
 			hideProgressBar: false,
@@ -62,8 +66,16 @@ export default function Matches() {
 				return 0;
 			})
 
+			let newGroupMap: GroupMap = {};
+
+			for (var group of queriedGroups) {
+				if (group.id != undefined) {
+					newGroupMap[group.id] = group;
+				}
+			}
+
 			setInvitations(invites)
-			setGroups(queriedGroups)
+			setGroups(newGroupMap)
 			setLoading(false);
 		}
 	}
@@ -157,6 +169,15 @@ export default function Matches() {
 			errorMessage("Likely due to network connection");
 		}
 	}
+
+	function getCurrentGroup() {
+		const invite = invitations[index];
+		if (invite.group_id == undefined) {
+			return {}
+		} else {
+			return groups[invite.group_id]
+		}
+	}
 	
 	return (
 		<main className={"grow flex flex-col justify-center w-screen"}>
@@ -166,7 +187,7 @@ export default function Matches() {
 				(<div className="flex flex-col mx-14 lg:mx-20">
 					<MatchInterface
 					invite={invitations[index]}
-					group={groups[index]}
+					group={getCurrentGroup()}
 					joinGroup={joinGroup}
 					rejectGroup={rejectGroup}/>
 					<Matchbar index={index} setIndex={setIndex} items={invitations}/>

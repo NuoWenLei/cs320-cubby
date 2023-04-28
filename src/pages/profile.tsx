@@ -14,7 +14,7 @@ export default function Profile() {
 	const router = useRouter();
 
 	function unauthenticatedRedirect() {
-		toast.error('Not authenticated yet, please sign up first!', {
+		toast.info('Please sign up first!', {
 			position: "bottom-left",
 			autoClose: 5000,
 			hideProgressBar: false,
