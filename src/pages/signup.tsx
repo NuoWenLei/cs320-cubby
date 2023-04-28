@@ -14,9 +14,34 @@ export default function Signup() {
 	const auth: AuthState = useAuth();
 
 	function setMap(k: string, v: string) {
-		let map = answerMap;
+		let map = { ...answerMap};
 		map[k] = v;
 		setAnswerMap(map);
+	}
+
+	function emptinessCheck() {
+		let valid = true;
+		for (var question of questions) {
+			if (!(question.q in answerMap)) {
+				valid = false;
+			} else if (answerMap[question.q].trim().length == 0) {
+				valid = false;
+			}
+		}
+
+		if (!valid) {
+			toast.error("Please make sure you answered all questions!", {
+				position: "bottom-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "colored",
+			});
+		}
+		return valid;
 	}
 
 	async function callSignup() {
@@ -35,6 +60,11 @@ export default function Signup() {
 		} else {
 			const res: User | string | boolean = await auth.signInWithGoogle();
 			if (typeof res == "string") {
+
+				if (!emptinessCheck()) {
+					return;
+				}
+
 				const status = await createNewUser({
 					"email": res,
 					"name": name.trim(),

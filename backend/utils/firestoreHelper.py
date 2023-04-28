@@ -16,7 +16,7 @@ async def get_doc(collection: str, id: str, class_factory: Callable[[dict], obje
 		- if queried object does exist, return instance of object from class_factory
 	"""
 	doc_ref = db.collection(collection).document(id)
-	doc = await doc_ref.get()
+	doc = doc_ref.get()
 	if doc.exists:
 		doc_dict = doc.to_dict().copy()
 		doc_dict["_id"] = id

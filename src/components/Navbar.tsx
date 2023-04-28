@@ -5,17 +5,18 @@ import Link from 'next/link'
 import { AuthState, useAuth } from '@/utils/firebaseFunctions'
 import { User } from '@/utils/types'
 import { toast } from 'react-toastify'
-
-const navigation = [
-  { name: 'Dashboard', href: '#', current: false },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-]
+import { useRouter } from 'next/router'
 
 export default function Navbar() {
 
 	const auth: AuthState = useAuth();
+
+  const router = useRouter();
+
+  const signOutFunction = () => {
+    auth.signOut();
+    router.replace("/");
+  }
 
   const signInFunction = async () => {
     const res: User | string | boolean = await auth.signInWithGoogle();
@@ -81,12 +82,12 @@ export default function Navbar() {
 					{/* TODO: Add page navigations */}
                   {auth.isAuthenticated ? 
                   (<>
-                  <Link href="#">
+                  <Link href="/matches">
                       <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
                         Home
                         </div>
                         </Link>
-                      <Link href="#">
+                      <Link href="/communities">
                       <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
                         Communities
                         </div>
@@ -141,7 +142,7 @@ export default function Navbar() {
 										</Menu.Item>
 										<Menu.Item>
 											<div className="block px-4 py-2 text-sm text-gray-700">
-											  <button type="button" onClick={auth.signOut}>Sign Out</button>
+											  <button type="button" onClick={signOutFunction}>Sign Out</button>
 										  </div>
 										</Menu.Item>
 									  </Menu.Items>
@@ -173,10 +174,10 @@ export default function Navbar() {
                   (<div className="space-y-1 px-2 pb-3 pt-2">
 
                   <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
-                  <Link href="#">Home</Link>
+                  <Link href="/matches">Home</Link>
                 </button>
                   <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
-                  <Link href="#">Communities</Link>
+                  <Link href="/communities">Communities</Link>
                 </button>
                 <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
                   <Link href="#">Chats</Link>
