@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import { FirebaseAuthContext, useFirebaseAuth } from '@/utils/firebaseFunctions'
-import { getUserData, updateUserProfile } from "./editProfile";
+import { getUserData, updateUserProfile } from "../utils/editProfile";
 import type { AppProps } from 'next/app'
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify'
@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Cubby</title>
       </Head>
-      <div className={"h-screen flex flex-col bg-orange-50 " + caveat.className}>
+      <div className={"h-screen flex flex-col bg-orange-50 overflow-y-scroll " + caveat.className}>
         <Navbar />
         <Component {...pageProps} />
         <ToastContainer />
