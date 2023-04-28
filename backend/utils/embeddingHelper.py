@@ -15,7 +15,7 @@ def batch_text_to_embedding(batch: List[List[str]]) -> np.ndarray:
 	- batch: List[List[str]], batch of text to convert to embedding
 
 	Returns:
-	- np.ndarray, embeddings of text batch, each of shape (50,)
+	- np.ndarray, embeddings of text batch, each of shape (50 * number of questions,)
 	"""
 	word_embed = load_embedding()
 	word_index = load_word_index()
