@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from utils.embeddingHelper import calculate_suggestions_and_similarities, doc_to_id_and_embed
 from utils.firestoreHelper import *
 from utils.constants import NUM_SUGGESTIONS, QUESTION_ORDER
 from utils.firestoreClasses import UserDoc
@@ -59,36 +60,20 @@ async def friend_matches(user_id: str = None, num_suggestions: int = NUM_SUGGEST
 	
 	if doc is None:
 		raise HTTPException(status_code = 404, detail = "user not found")
-	
-	# Get user answer embedding
-	_ids, texts = extract_text_ids([doc], question_order=QUESTION_ORDER)
-	embeds = batch_text_to_embedding(texts)
-	user_id = _ids[0]
-	answer_embed = embeds[0]
 
-	if not os.path.exists("cluster/feature_columns.json"):
+	user_id, answer_embed = doc_to_id_and_embed(doc)
+
+	column_path = os.path.join(os.path.dirname(__file__), "cluster/feature_columns.json")
+
+	cluster_path = os.path.join(os.path.dirname(__file__), "cluster/clusters_today.npy")
+
+	if not os.path.exists(column_path):
 		return None
-
-	with open("cluster/feature_columns.json", "r") as col_json:
-		feature_columns = json.load(col_json)
 	
-	# Get specific features from embedding
-	features = np.take_along_axis(answer_embed, feature_columns, axis = 0)
-
-	with open("cluster/clusters_today.npy", "rb") as cluster_npy:
-		cluster_centers = np.load(cluster_npy)
+	if not os.path.exists(cluster_path):
+		return None
 	
-	# Calculate distance between user answer and every cluster center
-	expanded_features = features[np.newaxis, ...]
-
-	euclidean_distance = ((cluster_centers - expanded_features) ** 2).sum(axis = 1)
-
-	distance_sim = 1. / (1. + euclidean_distance)
-	
-	# Get suggestions
-	sorted_suggestions = np.argsort(distance_sim, axis = 0)
-
-	sorted_sims = np.take_along_axis(distance_sim, sorted_suggestions, axis = 0)
+	sorted_suggestions, sorted_sims = calculate_suggestions_and_similarities(column_path, cluster_path, answer_embed)
 
 	with open("cluster/index_to_group_id.json", "r") as i2g_json:
 		index2group_id = json.load(i2g_json)
