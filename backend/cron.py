@@ -1,7 +1,8 @@
 from utils.firestoreHelper import get_all_docs, add_doc
 from utils.firestoreClasses import UserDoc
-from utils.constants import QUESTION_ORDER
+from utils.constants import QUESTION_ORDER, NUM_FEATURES_PER_QUESTION, NUM_FEATURES
 from cron_functions.cronHelper import extract_text_ids, fit_model
+import numpy as np
 import json, os, asyncio
 
 async def main():
@@ -34,6 +35,13 @@ async def main():
 	
 	cluster_model.save_clusters()
 
+	all_unique_features = [0 for _ in range(len(QUESTION_ORDER))]
+
+	(unique_features, feature_counts) = np.unique(np.int32(cluster_model.feature_columns / float(NUM_FEATURES_PER_QUESTION)), return_counts=True)
+
+	for f, c in zip(unique_features.tolist(), (feature_counts.astype("float32") / float(NUM_FEATURES)).tolist()):
+		all_unique_features[int(f)] = round(c, 3) 
+
 	# TODO: Do we filter out new groups with only 1 match?
 	# group_indices[counts >= MIN_MEMBER_PER_GROUP]
 
@@ -43,6 +51,7 @@ async def main():
 		# create group
 		group_id = await add_doc("groups", {
 			"friend_group": True,
+			"feature_dist": all_unique_features,
 			"member_ids": []
 		})
 
