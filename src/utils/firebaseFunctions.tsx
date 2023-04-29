@@ -53,6 +53,9 @@ async function signInWithGoogle(): Promise<User | string | boolean> {
     if (email == null) {
       return false;
     }
+    if (!email.endsWith("@brown.edu")) {
+      return true;
+    }
     const userSnapshot: QueryDocumentSnapshot<DocumentData> | null = await checkRegisterWithSnapshot(email);
     if (!(userSnapshot instanceof QueryDocumentSnapshot<DocumentData>)) {
       return email;

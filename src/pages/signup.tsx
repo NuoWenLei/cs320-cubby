@@ -110,16 +110,29 @@ export default function Signup() {
 
 					window.location.replace(window.location.href.replace(new RegExp("signup$"), ''));
 				} else {
-					toast.error("Account creation unsuccessful, check your network connection!", {
-						position: "bottom-left",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "colored",
-					});
+					if (res) {
+						toast.error('Please use an email that ends with "@brown.edu"', {
+							position: "bottom-left",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: "colored",
+						});
+					} else {
+						toast.error("Account creation unsuccessful, check your network connection!", {
+							position: "bottom-left",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: "colored",
+						});
+					}
 				}
 			} else if (typeof res == "boolean") {
 				// Unauthenticated due to not completing or failing authentication
