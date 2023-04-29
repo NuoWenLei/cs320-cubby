@@ -33,17 +33,31 @@ export default function Navbar() {
         theme: "colored",
         });
     } else if (typeof res == "boolean") {
-      // Unauthenticated due to not completing or failing authentication
-      toast.error('Authentication error: Please complete authentication!', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        });
+      if (res) {
+        // Authenticated but not with Brown email
+        toast.error('Authentication error: Please signin with Brown email', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      } else {
+        // Unauthenticated due to not completing or failing authentication
+        toast.error('Authentication error: Please complete authentication!', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      }
     }
   }
 
