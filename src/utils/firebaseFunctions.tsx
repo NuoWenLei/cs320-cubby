@@ -45,10 +45,9 @@ function signOut() {
  */
 async function signInWithGoogle(): Promise<User | string | boolean> {
   const provider = new GoogleAuthProvider();
-  provider.setCustomParameters({'hd': 'brown.edu'});
+  provider.setCustomParameters({hd: 'brown.edu', prompt: 'select_account'});
   try {
     const result = await signInWithPopup(auth, provider);
-    console.log(result)
     const email = result.user.email;
     if (email == null) {
       return false;
