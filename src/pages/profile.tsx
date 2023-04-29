@@ -130,9 +130,11 @@ export default function Profile() {
 			</div>
 
 			{
-				questions.map((question: QuestionWithExamples) => {
+				questions.map((question: QuestionWithExamples, i: number) => {
 					return (
-					<div className="mb-6 w-2/3 h-1/6 mx-auto md:font-normal font-bold">
+					<div 
+					key={i}
+					className="mb-6 w-2/3 h-1/6 mx-auto md:font-normal font-bold">
 						<label className="mb-2">{question.q}</label>
 						<input type="text" className="w-full rounded-md px-3 py-1 font-normal"
 						onChange={(e) => {
@@ -145,7 +147,7 @@ export default function Profile() {
 			}
 
 			<div className="mb-6 w-2/3 h-1/6 mx-auto md:font-normal font-bold">
-				<label className="mb-2">Finally, what's your name?</label>
+				<label className="mb-2">Finally, what&apos;s your name?</label>
 				<input type="text" className="w-full rounded-md px-3 py-1 font-normal"
 				onChange={(e) => {
 					setName(e.currentTarget.value);

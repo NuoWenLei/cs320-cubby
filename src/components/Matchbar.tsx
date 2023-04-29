@@ -35,6 +35,7 @@ export default function Matchbar(
 						items.map((invite: Invitation, itemIndex: number) => {
 							return (
 								<div
+								key={itemIndex}
 								onClick={() => {setIndex(itemIndex)}}
 								className={(index == itemIndex ? "border-orange-900 " : "border-transparent ") + "border-2 w-18 md:w-32 shrink-0 flex flex-col mr-6 md:mr-12 p-2 cursor-pointer"}>
 									<div className="mx-auto text-center text-xl md:text-2xl">
