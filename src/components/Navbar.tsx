@@ -106,9 +106,9 @@ export default function Navbar() {
                         Communities
                         </div>
                         </Link>
-                        <Link href="#">
+                        <Link href="/groups">
                       <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
-                        Chats
+                        Groups
                         </div>
                         </Link>
                   </>) : null}
@@ -194,7 +194,7 @@ export default function Navbar() {
                   <Link href="/communities">Communities</Link>
                 </button>
                 <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
-                  <Link href="#">Chats</Link>
+                  <Link href="/groups">Groups</Link>
                 </button>
                   </div>) : (
                     <div className="space-y-1 px-2 pb-3 pt-2">

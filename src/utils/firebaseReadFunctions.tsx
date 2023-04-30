@@ -41,6 +41,27 @@ export async function getInvitationsOfUser(
 }
 
 /*
+(Async) Get data of groups that user is in.
+
+(user_id: string) => Promise<Group[]>
+*/
+export async function getUserGroups(user_id: string): Promise<Group[]> {
+  const q = query(
+    collection(firestore, "groups"),
+    where("member_ids", "array-contains", user_id));
+  
+  const queryDocs = await getDocs(q);
+  let groups: Group[] = [];
+  queryDocs.forEach((snap: QueryDocumentSnapshot<DocumentData>) => {
+    let g = snap.data();
+    g["id"] = snap.id;
+    groups.push(g)
+  });
+
+  return groups;
+}
+
+/*
 (Async) Get data of groups given a list of group ids.
 
 (groupIDs: string[]) => Promise<Group[]>
