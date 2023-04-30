@@ -20,6 +20,7 @@ export default function Sidebar(
 				items.map((g: Group, i: number) => {
 					return (
 						<div
+						key={i}
 						onClick={() => setIndex(i)}
 						className={"cursor-pointer m-2 mb-3 rounded-md border border-2 "
 						+ ((index == i) ? "border-orange-900" : "border-transparent")}>
