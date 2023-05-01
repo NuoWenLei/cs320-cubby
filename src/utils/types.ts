@@ -21,6 +21,7 @@ export type Invitation = {
 
 export type Group = {
 	id?: string;
+	name?: string;
 	feature_dist?: number[];
 	friend_group?: boolean;
 	member_ids?: string[];

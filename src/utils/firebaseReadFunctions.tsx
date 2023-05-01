@@ -9,7 +9,8 @@ import {
   where,
 } from "firebase/firestore";
 import { firestore } from "./firebaseConfig";
-import { Invitation, Group } from "./types";
+import { Invitation, Group, User } from "./types";
+import { firebaseUserToUser } from "./firebaseFunctions";
 
 
 /*
@@ -38,6 +39,63 @@ export async function getInvitationsOfUser(
   });
 
   return snapshotData;
+}
+
+/*
+(Async) Get data of groups that user is in.
+
+(user_id: string) => Promise<Group[]>
+*/
+export async function getUserGroups(user_id: string): Promise<Group[]> {
+  const q = query(
+    collection(firestore, "groups"),
+    where("member_ids", "array-contains", user_id));
+  
+  const queryDocs = await getDocs(q);
+  let groups: Group[] = [];
+  queryDocs.forEach((snap: QueryDocumentSnapshot<DocumentData>) => {
+    let g = snap.data();
+    g["id"] = snap.id;
+    groups.push(g)
+  });
+
+  return groups;
+}
+
+/*
+(Async) Get joint user map from multiple groups.
+
+(groups: Group[]) => Promise<{[key: string]: User}>
+*/
+export async function getAllUsersFromGroups(groups: Group[]): Promise<{[key: string]: User}> {
+  let userMap: {[key: string]: User} = {};
+  for (var g of groups) {
+    userMap = {...userMap, ...(await getUsersFromGroup(g))}
+  }
+  return userMap;
+}
+
+/*
+(Async) Get user map from group.
+
+(g: Group) => Promise<{[key: string]: User}>
+*/
+export async function getUsersFromGroup(g: Group): Promise<{[key: string]: User}> {
+  if (g.member_ids == undefined) {
+    return {};
+  }
+
+  let users: {[key: string]: User} = {};
+
+  for (var _id of g.member_ids) {
+    const docRef = doc(firestore, "users", _id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      let u: User = docSnap.data();
+      users[docSnap.id] = firebaseUserToUser(u, docSnap.id);
+    }
+  }
+  return users;
 }
 
 /*
