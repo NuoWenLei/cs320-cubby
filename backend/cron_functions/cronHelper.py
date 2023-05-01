@@ -8,8 +8,8 @@ import numpy as np
 
 def get_random_group_name() -> str:
 	w = RandomWord()
-	adj = w.word(include_parts_of_speech=["adjective"])
-	noun = w.word(include_parts_of_speech=["noun"])
+	adj = w.word(include_parts_of_speech=["adjective"], word_max_length=8, word_min_length=3)
+	noun = w.word(include_parts_of_speech=["noun"], word_max_length=8, word_min_length=3)
 	return " ".join([adj, noun])
 
 def extract_text_ids(docs: List[UserDoc], question_order: List[str]) -> Tuple[np.ndarray, List[List[str]]]:
