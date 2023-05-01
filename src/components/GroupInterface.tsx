@@ -45,7 +45,7 @@ export default function GroupInterface(
 								<></>
 							)
 						}
-						return (<div className={"flex flex-row p-2"}>
+						return (<div className={"flex flex-row p-2"} key={user_id}>
 						<div className="h-20 w-20 overflow-hidden rounded-full">
 							<img
 							className="h-full, w-full object-cover object-center"
