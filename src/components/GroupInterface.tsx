@@ -11,12 +11,12 @@ export default function GroupInterface(
 	return (
 		<div className="flex flex-col h-full m-20">
 			<div className="text-4xl mb-3 mx-auto">
-				{group.id}
+				{group.name}
 			</div>
 			<div className="text-2xl w-full text-center mb-3">
 						Matching Distribution
 			</div>
-			<div className="text-md text-xl w-full text-center flex flex-row flex-wrap justify-center mb-4 w-1/3 mx-auto">
+			<div className="text-md text-xl text-center flex flex-row flex-wrap justify-center mb-4 w-1/3 mx-auto">
 				{
 					group.feature_dist ? (group.feature_dist.map((percent: number, i: number) => {
 						return (

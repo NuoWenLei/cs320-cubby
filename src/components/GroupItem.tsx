@@ -12,7 +12,7 @@ export default function GroupItem(
 			</div>
 			<div className="flex flex-col ml-4 mt-2">
 				<div className="text-orange-900 text-xl">
-					{ group.id ? group.id : "No ID"}
+					{ group.name ? group.name : "No name"}
 				</div>
 				<div className="text-orange-900">
 					Number of members: { group.member_ids ? group.member_ids.length : 0}
