@@ -63,8 +63,8 @@ def cosine_similarity(group_embeds: np.ndarray, query_embeds: np.ndarray) -> np.
 	- query_embeds: np.ndarray, query embeddings with shape (1, 50)
 
 	Returns:
-	- np.ndarray, cosine similarity between query and every group with shape (num_groups)
+	- np.ndarray, cosine similarity between query and every group with shape (num_groups, )
 	"""
-	dot_prod = (group_embeds * query_embeds)
+	dot_prod = (group_embeds * query_embeds).sum(axis = 1)
 	norms = (((group_embeds ** 2.).sum(axis = 1) ** 0.5) * ((query_embeds ** 2.).sum(axis = 1) ** 0.5))
 	return dot_prod / norms
