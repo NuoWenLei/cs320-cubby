@@ -29,7 +29,7 @@ httpcore==0.17.0
 httplib2==0.22.0
 httptools==0.5.0
 httpx==0.24.0
-idna==2.5
+idna
 importlib-metadata==6.5.0
 iniconfig==2.0.0
 itsdangerous==2.1.2
