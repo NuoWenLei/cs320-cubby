@@ -16,7 +16,7 @@ def search(groups: List[GroupDoc], q: str) -> Tuple[np.ndarray, np.ndarray]:
 		- np.ndarray, array of sorted group ids
 		- np.ndarray, array of sorted similarities
 	"""
-	group_names = [group.name for group in groups]
+	group_names = [[group.name] for group in groups]
 
 	group_ids = np.array([group._id for group in groups])
 
