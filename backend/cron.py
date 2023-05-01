@@ -1,11 +1,12 @@
 from utils.firestoreHelper import get_all_docs, add_doc
 from utils.firestoreClasses import UserDoc
 from utils.constants import QUESTION_ORDER, NUM_FEATURES_PER_QUESTION, NUM_FEATURES
-from cron_functions.cronHelper import extract_text_ids, fit_model
+from cron_functions.cronHelper import extract_text_ids, fit_model, get_random_group_name
 import numpy as np
 import json, os, asyncio
+from wonderwords import RandomWord
 
-async def main():
+async def add_friend_groups():
 	"""
 	Function for daily data clustering, group creating and matching.
 
@@ -50,6 +51,7 @@ async def main():
 
 		# create group
 		group_id = await add_doc("groups", {
+			"name": get_random_group_name(),
 			"friend_group": True,
 			"feature_dist": all_unique_features,
 			"member_ids": []
@@ -100,8 +102,20 @@ async def main():
 
 	with open(store_path, "w") as store_json:
 		json.dump(index2group_id, store_json)
+
+async def add_interest_group_invites():
+	"""
+	Function for daily interest group suggestions.
+
+	Idea 1:
+	- choose random interest groups to suggest to each user
+
+	Idea 2:
+	- find most similar interest groups to user questions
+	"""
+	pass
 	
 
 if __name__ == "__main__":
-	asyncio.run(main())
+	asyncio.run(add_friend_groups())
 

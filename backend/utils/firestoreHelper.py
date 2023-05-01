@@ -1,5 +1,5 @@
 from .firebaseConfig import db
-from typing import Union, Callable, List, Dict
+from typing import Union, Callable, List, Dict, Tuple
 
 async def get_doc(collection: str, id: str, class_factory: Callable[[dict], object]) -> Union[object, None]:
 	"""
@@ -23,7 +23,7 @@ async def get_doc(collection: str, id: str, class_factory: Callable[[dict], obje
 		return class_factory(doc_dict)
 	return None
 
-async def get_all_docs(collection: str, class_factory: Callable[[dict], object]) -> List[object]:
+async def get_all_docs(collection: str, class_factory: Callable[[dict], object], query: Union[Tuple[str, str, object], None] = None) -> List[object]:
 	"""
 	Get all documents from Firestore collection and instantiate object as a class.
 
@@ -35,6 +35,8 @@ async def get_all_docs(collection: str, class_factory: Callable[[dict], object])
 	- List[object], return list of object from class_factory
 	"""
 	collection_ref = db.collection(collection)
+	if query is not None:
+		collection_ref = collection_ref.where(query[0], query[1], query[2])
 	docs = collection_ref.stream()
 	objects = []
 	for doc in docs:

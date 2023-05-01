@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from utils.matchHelper import calculate_suggestions_and_similarities, doc_to_id_and_embed
+from utils.searchHelper import search
 from utils.firestoreHelper import *
 from utils.constants import NUM_SUGGESTIONS
-from utils.firestoreClasses import UserDoc
+from utils.firestoreClasses import UserDoc, GroupDoc
 from mock_data.mock_generator import MockUserGenerator
 import json, os
 
@@ -38,6 +39,40 @@ async def root():
 # - Interest Group Name Search
 # - New user match to groups
 
+@app.get("/interestSearch")
+async def interest_search(q: str = None):
+	"""
+	Search for interest groups most relevant to query.
+
+	Process:
+	- get interest group docs
+	- process interest group names to embeddings
+	- process query to embeddings
+	- sort by closest interest groups to query
+	- return all interest groups in that order
+
+	Args:
+	- q: str = None, query of user
+	
+	Returns:
+	- ordered_ids: List[str], list of group ids
+	- ordered_sims: List[float], list of similarity of each group with query
+
+	Throws:
+	- HTTPException when there is a bad request or internal server error
+	"""
+	if q is None:
+		raise HTTPException(status_code = 400, detail = "Bad Request: query not provided")
+	
+	interest_groups = await get_all_docs("groups", GroupDoc.from_dict, ("friend_group", "==", False))
+
+	sorted_group_ids, sorted_sims = search(interest_groups, q)
+
+	return {
+		"ordered_ids": sorted_group_ids.tolist(),
+		"ordered_sims": sorted_sims.tolist()
+	}
+
 @app.get("/friendMatches")
 async def friend_matches(user_id: str = None, num_suggestions: int = NUM_SUGGESTIONS):
 	"""
@@ -59,6 +94,9 @@ async def friend_matches(user_id: str = None, num_suggestions: int = NUM_SUGGEST
 	Returns:
 	- added_groups: List[string], ids of suggested groups
 	- similarites: List[float], euclidean distance similarity with each group
+
+	Throws:
+	- HTTPException when there is a bad request or internal server error
 	"""
 	if user_id is None:
 		raise HTTPException(status_code = 400, detail = "Bad Request: user_id not provided")

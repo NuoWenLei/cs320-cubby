@@ -1,9 +1,16 @@
 from typing import List, Tuple
+from wonderwords import RandomWord
 from utils.firestoreClasses import UserDoc
 from utils.embeddingHelper import batch_text_to_embedding
 from utils.constants import NUM_FEATURES, NUM_GROUPS, NUM_SUGGESTIONS
 from cluster.kmeans_cluster import KMeansCluster
 import numpy as np
+
+def get_random_group_name() -> str:
+	w = RandomWord()
+	adj = w.word(include_parts_of_speech=["adjective"])
+	noun = w.word(include_parts_of_speech=["noun"])
+	return " ".join([adj, noun])
 
 def extract_text_ids(docs: List[UserDoc], question_order: List[str]) -> Tuple[np.ndarray, List[List[str]]]:
 	"""
