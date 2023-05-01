@@ -41,8 +41,11 @@ export default function MatchInterface(
 			</div>
 			<div className="basis-full md:basis-1/2 px-6">
 				<div className="w-full lg:w-11/12 xl:w-7/12 border-2 border-orange-900 text-orange-900 p-3 flex flex-col mx-auto">
-					<div className="text-xl xl:text-3xl w-full text-center mb-3">
-						Overview Cubs
+					<div className="text-xl xl:text-3xl w-full text-center">
+						Overview
+					</div>
+					<div className="text-xl xl:text-2xl text-center w-full flex flex-row justify-center">
+						<span className="hidden sm:flex mr-2">Name: </span> {group.name}	
 					</div>
 					<div className="h-20 w-20 overflow-hidden rounded-full mb-3 mx-auto md:hidden">
 						<img
