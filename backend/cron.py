@@ -4,7 +4,6 @@ from utils.constants import QUESTION_ORDER, NUM_FEATURES_PER_QUESTION, NUM_FEATU
 from cron_functions.cronHelper import extract_text_ids, fit_model, get_random_group_name
 import numpy as np
 import json, os, asyncio
-from wonderwords import RandomWord
 
 async def add_friend_groups():
 	"""
