@@ -1,14 +1,15 @@
 import GroupInterface from "@/components/GroupInterface";
 import Sidebar from "@/components/Sidebar";
 import { AuthState, useAuth } from "@/utils/firebaseFunctions";
-import { getUserGroups } from "@/utils/firebaseReadFunctions";
-import { Group } from "@/utils/types";
+import { getAllUsersFromGroups, getUserGroups } from "@/utils/firebaseReadFunctions";
+import { Group, User } from "@/utils/types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Group() {
 	const [groups, setGroups] = useState<Group[]>([]);
+	const [userMap, setUserMap] = useState<{[key: string]: User}>({});
 	const [index, setIndex] = useState<number | undefined>(undefined);
 
 	const auth: AuthState = useAuth();
@@ -40,6 +41,8 @@ export default function Group() {
 		if (auth.user?.id != undefined) {
 			const res = await getUserGroups(auth.user.id);
 			setGroups(res);
+			const userMapRes = await getAllUsersFromGroups(res);
+			setUserMap(userMapRes);
 		} 
 	}
 
@@ -54,7 +57,7 @@ export default function Group() {
 			<div className="basis-3/4 flex flex-col text-orange-900">
 				{
 					index != undefined ?
-					<GroupInterface group={groups[index]}/> : null
+					<GroupInterface group={groups[index]} userMap={userMap}/> : null
 				}
 			</div>
 		</main>
