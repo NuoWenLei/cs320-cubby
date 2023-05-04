@@ -10,13 +10,13 @@ const applicationQuestions = [
 	{
 		q: "COMMUNITY LINK (EX: DISCORD LINK), PUT N/A IF NONE",
 		name: "community_link",
-		classes: "w-1/2",
+		classes: "w-full md:w-1/2",
 		useInput: true,
 	},
 	{
 		q: "COMMUNITY MISSION",
 		name: "mission",
-		classes: "h-40 w-3/4",
+		classes: "h-40 w-full md:w-3/4",
 		useInput: false,
 	}
 ]
@@ -149,17 +149,17 @@ export default function CreateCommunity() {
 
 	return (
 		<main className={"grow flex flex-col justify-start text-black italic p-20"}>
-			<div className="text-4xl font-semibold mb-6">
+			<div className="text-2xl md:text-4xl font-semibold mb-6">
 				CREATE YOUR OWN COMMUNITY
 			</div>
-			<div className="text-lg flex flex-col mb-4">
+			<div className="text-sm md:text-lg flex flex-col mb-4">
 				<div
 					className="mb-3 bg-transparent flex flex-col">
 						<label className="italic">
 							NAME
 						</label>
 						<input type="text"
-						className={"bg-gray-200 rounded-md p-2 w-1/2"}
+						className={"bg-gray-200 rounded-md p-2 w-full md:w-1/2"}
 						onChange={
 							(e) => setCommunityName(e.target.value)
 						}/>
@@ -194,9 +194,13 @@ export default function CreateCommunity() {
 					})
 				}
 			</div>
-			<div className="w-5/6 text-right cursor-pointer"
-			onClick={sendCreateRequest}>
-				submit community request <TrendingFlatIcon />
+			<div className="w-full md:w-5/6 flex flex-row justify-center md:justify-end">
+				<button type="button"
+				className="bg-orange-900 rounded-lg md:bg-transparent text-white md:text-black font-bold md:font-normal p-2"
+				onClick={sendCreateRequest}>
+				submit community request <TrendingFlatIcon className="hidden md:inline"/>
+				</button>
+				
 			</div>
 		</main>
 	)

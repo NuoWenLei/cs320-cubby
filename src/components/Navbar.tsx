@@ -195,6 +195,9 @@ export default function Navbar() {
                 <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
                   <Link href="/groups">Groups</Link>
                 </button>
+                <button type="button" className='hover:bg-orange-100 block rounded-md px-3 py-2 text-base font-medium'>
+                  <Link href="/create_community">Create</Link>
+                </button>
                   </div>) : (
                     <div className="space-y-1 px-2 pb-3 pt-2">
                       <button
