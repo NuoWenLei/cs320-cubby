@@ -120,49 +120,48 @@ export default function Profile() {
 	}
 
 	return (
-		<main className={"grow flex flex-col justify-center w-screen text-orange-900 md:pt-8 pb-14"}>
-		<div className="w-full md:w-2/3 mx-auto rounded-lg bg-transparent md:bg-orange-200 p-5 flex flex-col text-lg lg:text-xl">
-			<div className="w-full text-center text-2xl lg:text-3xl mb-3">
-				These are your current questionnaire responses!
-			</div>
-			<div className="w-full text-center text-lg lg:text-xl mb-6">
-			Note: Try to use as FEW words as possible!
-			</div>
-
-			{
+	<main className={"grow flex flex-col justify-center w-screen text-orange-900 md:pt-8 pb-14"}>
+		<div className="w-full text-center text-3xl font-semibold mb-3">
+			YOUR RESPONSES
+		</div>
+		<div className="text-center text-lg italic mb-6">
+			update your responses here
+		</div>
+		<div className="w-full flex flex-wrap justify-center mb-6 text-sm md:text-base">
+		{
 				questions.map((question: QuestionWithExamples, i: number) => {
 					return (
-					<div 
+					<div
 					key={i}
-					className="mb-6 w-2/3 h-1/6 mx-auto md:font-normal font-bold">
+					className="mx-4 my-2 w-40 md:w-60 xl:w-1/4 font-semibold bg-orange-100 rounded-lg p-4 flex flex-col justify-between">
 						<label className="mb-2">{question.q}</label>
-						<input type="text" className="w-full rounded-md px-3 py-1 font-normal"
+						<input type="text" className="w-full rounded-md px-3 py-1 font-normal bg-orange-300 text-orange-900"
 						onChange={(e) => {
 							setMap(question.q, e.currentTarget.value);
 						}}
-						value={answerMap[question.q]}
-						placeholder={"Ex: " + question.example}/>
+						value={answerMap[question.q]}/>
 					</div>)
 				})
 			}
-
-			<div className="mb-6 w-2/3 h-1/6 mx-auto md:font-normal font-bold">
+			<div
+				className="mx-4 my-2 w-40 md:w-60 xl:w-1/4 font-semibold bg-orange-100 rounded-lg p-4 flex flex-col justify-between">
 				<label className="mb-2">Finally, what&apos;s your name?</label>
-				<input type="text" className="w-full rounded-md px-3 py-1 font-normal"
-				onChange={(e) => {
-					setName(e.currentTarget.value);
-				}}
-				value={name}
-				placeholder={"Nice to meet you!"}/>
+					<input type="text" className="w-full rounded-md px-3 py-1 font-normal bg-orange-300 text-orange-900"
+					onChange={(e) => {
+						setName(e.currentTarget.value);
+					}}
+					value={name}/>
 			</div>
 
-			<div className="w-full flex flex-row justify-center mb-4">
-				<button className="px-3 py-2 bg-orange-900 text-white rounded-lg" type="button"
+		</div>
+		<div className="w-full flex flex-row justify-center mb-4">
+				<button className="px-6 py-3 bg-orange-900 text-white font-semibold rounded-lg" type="button"
 				onClick={callUpdate}>
 					Update
 				</button>
-			</div>
 		</div>
 	</main>
 	)
 }
+
+
