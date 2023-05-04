@@ -1,16 +1,15 @@
 import '@/styles/globals.css'
 import { FirebaseAuthContext, useFirebaseAuth } from '@/utils/firebaseFunctions'
-import { getUserData, updateUserProfile } from "../utils/editProfile";
 import type { AppProps } from 'next/app'
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '@/components/Navbar';
-import { Caveat } from 'next/font/google';
-import { User } from "../utils/types";
 import { useRouter } from 'next/router';
-
-const caveat = Caveat({subsets: ["cyrillic"]});
+import { Inter } from 'next/font/google';
+ 
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ['latin'] });
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -23,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Cubby</title>
       </Head>
       <div className={"h-screen flex flex-col bg-orange-50 overflow-y-scroll "
-       + caveat.className
+       + inter.className
         + (router.pathname == "/groups" ? " divide-y-2 divide-orange-800" : "")}>
         <Navbar />
         <Component {...pageProps} />
