@@ -127,13 +127,13 @@ export default function Profile() {
 		<div className="text-center text-lg italic mb-6">
 			update your responses here
 		</div>
-		<div className="w-full flex flex-wrap justify-center mb-6">
+		<div className="w-full flex flex-wrap justify-center mb-6 text-sm md:text-base">
 		{
 				questions.map((question: QuestionWithExamples, i: number) => {
 					return (
 					<div
 					key={i}
-					className="mx-4 my-2 w-1/4 mx-auto font-semibold bg-orange-100 rounded-lg p-4 flex flex-col justify-between">
+					className="mx-4 my-2 w-40 md:w-60 xl:w-1/4 font-semibold bg-orange-100 rounded-lg p-4 flex flex-col justify-between">
 						<label className="mb-2">{question.q}</label>
 						<input type="text" className="w-full rounded-md px-3 py-1 font-normal bg-orange-300 text-orange-900"
 						onChange={(e) => {
@@ -144,7 +144,7 @@ export default function Profile() {
 				})
 			}
 			<div
-				className="mx-4 my-2 w-1/4 mx-auto font-semibold bg-orange-100 rounded-lg p-4 flex flex-col justify-between">
+				className="mx-4 my-2 w-40 md:w-60 xl:w-1/4 font-semibold bg-orange-100 rounded-lg p-4 flex flex-col justify-between">
 				<label className="mb-2">Finally, what&apos;s your name?</label>
 					<input type="text" className="w-full rounded-md px-3 py-1 font-normal bg-orange-300 text-orange-900"
 					onChange={(e) => {
