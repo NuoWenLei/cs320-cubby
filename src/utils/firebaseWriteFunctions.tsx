@@ -1,5 +1,5 @@
 import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
-import { User } from "./types";
+import { Group, User } from "./types";
 import { firestore } from "./firebaseConfig";
 
 /*
@@ -37,6 +37,15 @@ export async function changeInvitationStatus(invitation_id: string, status: stri
 			status: status
 		});
 		return true;
+	} catch (_) {
+		return false;
+	}
+}
+
+export async function addInterestGroupApplication(interestGroup: Group): Promise<string | boolean> {
+	try {
+		const newRef = await addDoc(collection(firestore, "interest_group_apps"), interestGroup);
+		return newRef.id;
 	} catch (_) {
 		return false;
 	}

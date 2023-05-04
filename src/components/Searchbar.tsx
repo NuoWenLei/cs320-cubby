@@ -25,7 +25,8 @@ export default function Searchbar(
 			}}
 			/>
 			</div>
-			<button className="ml-auto my-auto h-full w-1/3 xl:w-1/6 bg-orange-900 text-white ">Search</button>
+			<button type="button" className="ml-auto my-auto h-full w-1/3 xl:w-1/6 bg-orange-900 text-white"
+			onClick={() => searchFunc(inputState)}>Search</button>
 		</div>
 	)
 }

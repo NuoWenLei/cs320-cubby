@@ -83,17 +83,11 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center font-bold text-2xl">
 				          <Link href="/">
                   CUBBY
-                  {/* <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  /> */}
 
 				        </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-					{/* TODO: Add page navigations */}
                   {auth.isAuthenticated ? 
                   (<>
                   <Link href="/matches">
@@ -107,8 +101,13 @@ export default function Navbar() {
                         </div>
                         </Link>
                         <Link href="/groups">
-                      <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
+                        <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
                         Groups
+                        </div>
+                        </Link>
+                        <Link href="/create_community">
+                        <div className="hover:bg-orange-100 rounded-md px-3 py-2 text-sm font-medium">
+                        Create
                         </div>
                         </Link>
                   </>) : null}

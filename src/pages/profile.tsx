@@ -94,6 +94,21 @@ export default function Profile() {
 			if (!emptinessCheck()) {
 				return;
 			}
+
+			if (name.trim().length == 0) {
+				toast.error("Please enter a name!",
+				{
+					position: "bottom-left",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "colored",
+				});
+				return;
+			}
 			
 			await updateUserProfile(auth.user.id, {
 				name: name,
