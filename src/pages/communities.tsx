@@ -4,12 +4,14 @@ import { API_URL } from "@/utils/constants";
 import { AuthState, useAuth } from "@/utils/firebaseFunctions";
 import { getAllInterestGroups, getGroupsfromGID } from "@/utils/firebaseReadFunctions";
 import { Group, InterestSearchResult } from "@/utils/types";
+import { Dialog } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Communities() {
 	const [groupResults, setGroupResults] = useState<Group[]>([]);
+	const [openedId, setOpenedId] = useState<number>(-1);
 
 	const auth: AuthState = useAuth();
 	const router = useRouter();
@@ -81,14 +83,41 @@ export default function Communities() {
 				{
 					groupResults.map((group: Group, index: number) => {
 						return (
-						<div
-						key={index}>
-						<ResultCard interestGroup={group} user_id={auth.user?.id ? auth.user.id : ""}/>
-						</div>
+						<ResultCard
+						key={index}
+						interestGroup={group}
+						user_id={auth.user?.id ? auth.user.id : ""}
+						elem_id={index}
+						opened_id={openedId}
+						set_opened_id={setOpenedId}
+						/>
 						)
 					})
 				}
 			</div>
+{/* 
+			{
+				groupResults.map((group: Group, index: number) => {
+					return (
+						<Dialog open={index === openedId} onClose={() => setOpenedId(-1)}>
+						<Dialog.Panel>
+						<Dialog.Title>Deactivate account</Dialog.Title>
+						<Dialog.Description>
+							This will permanently deactivate your account
+						</Dialog.Description>
+			
+						<p>
+							Are you sure you want to deactivate your account? All of your data
+							will be permanently removed. This action cannot be undone.
+						</p>
+			
+						<button onClick={() => setOpenedId(-1)}>Deactivate</button>
+						<button onClick={() => setOpenedId(-1)}>Cancel</button>
+						</Dialog.Panel>
+					</Dialog>
+					)
+				})
+			} */}
 		</main>
 	)
 }
