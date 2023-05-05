@@ -3,6 +3,7 @@ import Searchbar from "@/components/Searchbar";
 import { API_URL } from "@/utils/constants";
 import { AuthState, useAuth } from "@/utils/firebaseFunctions";
 import { getAllInterestGroups, getGroupsfromGID } from "@/utils/firebaseReadFunctions";
+import { addUserToGroup } from "@/utils/firebaseWriteFunctions";
 import { Group, InterestSearchResult } from "@/utils/types";
 import { Dialog } from "@headlessui/react";
 import { useRouter } from "next/router";
@@ -74,12 +75,22 @@ export default function Communities() {
 		}
 	}
 
+	async function joinGroup(group_id: string | undefined, user_id: string) {
+		if (group_id == undefined) {
+			return false;
+		}
+
+		const status = await addUserToGroup(group_id, user_id);
+
+		return status;
+	}
+
 	return (
 		<main className={"grow flex flex-col justify-center text-orange-900"}>
 			<div className="w-11/12 md:w-1/2 mx-auto my-10">
 			<Searchbar searchFunc={searchFunc}/>
 			</div>
-			<div className="grow flex flex-row flex-wrap w-4/5 mx-auto justify-center">
+			<div className="grow flex flex-row flex-wrap w-11/12 h-80 mx-auto justify-center overflow-y-scroll mb-8">
 				{
 					groupResults.map((group: Group, index: number) => {
 						return (
@@ -90,34 +101,12 @@ export default function Communities() {
 						elem_id={index}
 						opened_id={openedId}
 						set_opened_id={setOpenedId}
+						join_group={joinGroup}
 						/>
 						)
 					})
 				}
 			</div>
-{/* 
-			{
-				groupResults.map((group: Group, index: number) => {
-					return (
-						<Dialog open={index === openedId} onClose={() => setOpenedId(-1)}>
-						<Dialog.Panel>
-						<Dialog.Title>Deactivate account</Dialog.Title>
-						<Dialog.Description>
-							This will permanently deactivate your account
-						</Dialog.Description>
-			
-						<p>
-							Are you sure you want to deactivate your account? All of your data
-							will be permanently removed. This action cannot be undone.
-						</p>
-			
-						<button onClick={() => setOpenedId(-1)}>Deactivate</button>
-						<button onClick={() => setOpenedId(-1)}>Cancel</button>
-						</Dialog.Panel>
-					</Dialog>
-					)
-				})
-			} */}
 		</main>
 	)
 }

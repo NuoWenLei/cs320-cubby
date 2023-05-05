@@ -1,5 +1,6 @@
 import { QuestionWithExamples, questions } from "@/utils/constants";
 import { Group, Invitation } from "@/utils/types";
+import { useState } from "react";
 
 export interface MatchInterfaceProps {
 	invite: Invitation;
@@ -12,7 +13,21 @@ export default function MatchInterface(
 	{ invite, group, joinGroup, rejectGroup } : MatchInterfaceProps
 ) {
 
+	const [loading, setLoading] = useState<boolean>(false);
+
 	const imageUrl = "https://www.restlesschipotle.com/wp-content/uploads/2022/08/Crispy-Oven-Baked-Chicken-Wings-feat2-500x500.jpg";
+
+	const requestJoin = async () => {
+		setLoading(true);
+		await joinGroup(group.id, invite.id);
+		setLoading(false);
+	}
+
+	const requestReject = async () => {
+		setLoading(true);
+		await rejectGroup(invite.id);
+		setLoading(false);
+	}
 
 	return (
 		<div className="w-full flex flex-row md:px-10 mb-2 xl:mb-4">
@@ -75,18 +90,14 @@ export default function MatchInterface(
 						}
 					</div>
 					<div className="flex flex-col md:hidden text-md text-center justify-center">
-						<button type="button" className="px-3 py-1 bg-orange-900 text-white rounded-md rounded-lg m-2"
-						onClick={
-							() => {
-								joinGroup(group.id, invite.id)
-							}
-						}>JOIN GROUP</button>
-						<button type="button" className="px-3 py-1 bg-rose-700 text-white rounded-md rounded-lg m-2"
-						onClick={
-							() => {
-								rejectGroup(invite.id)
-							}
-						}>DECLINE</button>
+						<button type="button"
+						disabled={loading}
+						className="disabled:opacity-60 px-3 py-1 bg-orange-900 text-white rounded-md rounded-lg m-2"
+						onClick={requestJoin}>JOIN GROUP</button>
+						<button type="button"
+						disabled={loading}
+						className="disabled:opacity-60 px-3 py-1 bg-rose-700 text-white rounded-md rounded-lg m-2"
+						onClick={requestReject}>DECLINE</button>
 					</div>
 				</div>
 			</div>

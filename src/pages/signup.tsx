@@ -210,7 +210,7 @@ export default function Signup() {
 				</div>
 
 			</div>
-			<div className="w-full flex flex-row justify-center mb-4">
+			<div className="w-full flex flex-row justify-center mb-8">
 					<button className="px-6 py-3 bg-orange-900 text-white font-semibold rounded-lg" type="button"
 					onClick={callSignup}>
 						Sign Up with Google
