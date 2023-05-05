@@ -21,13 +21,16 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Cubby</title>
       </Head>
-      <div className={"h-screen flex flex-col bg-orange-50 overflow-y-scroll "
-       + inter.className
-        + (router.pathname == "/groups" ? " divide-y-2 divide-orange-800" : "")}>
+      <div
+        className={
+          "h-screen flex flex-col bg-regal-orange overflow-y-scroll " +
+          inter.className +
+          (router.pathname == "/groups" ? " divide-y-2 divide-orange-800" : "")
+        }
+      >
         <Navbar />
         <Component {...pageProps} />
         <ToastContainer />
-        
       </div>
     </FirebaseAuthContext.Provider>
   );
