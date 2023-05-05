@@ -131,4 +131,24 @@ export async function getGroupsfromGID(groupIDs: string[]): Promise<Group[]> {
   return groups; 
 }
 
+/*
+(Async) Get all interest group data
+
+() => Promise<Group[]>
+*/
+export async function getAllInterestGroups(): Promise<Group[]> {
+  const q = query(collection(firestore, "groups"), where("friend_group", "==", false));
+  const docs = await getDocs(q);
+
+  let interestGroupDocs: Group[] = [];
+
+  docs.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
+    let gp: Group = doc.data();
+    gp["id"] = doc.id;
+		interestGroupDocs.push(gp);
+  });
+
+  return interestGroupDocs;
+}
+
 

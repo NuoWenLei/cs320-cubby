@@ -25,4 +25,18 @@ export type Group = {
 	feature_dist?: number[];
 	friend_group?: boolean;
 	member_ids?: string[];
+
+	// More interest group specific
+	founder_id?: string;
+	interest_group_info?: InterestGroupInfo;
+}
+
+export type InterestGroupInfo = {
+	mission?: string;
+	community_link?: string;
+}
+
+export type InterestSearchResult = {
+	ordered_ids: string[];
+	ordered_sims: number[];
 }
