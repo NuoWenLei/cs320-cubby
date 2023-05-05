@@ -1,6 +1,7 @@
 import { Group } from "@/utils/types";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { toast } from "react-toastify";
 
 interface ResultCardProp {
 	interestGroup: Group;
@@ -15,17 +16,48 @@ export default function ResultCard(
 	{ interestGroup, user_id, elem_id, opened_id, set_opened_id, join_group } : ResultCardProp
 ) {
 
+  const [joined, setJoined] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const requestJoin = async () => {
-    join_group(interestGroup.id, user_id);
+    setLoading(true);
+    const res = await join_group(interestGroup.id, user_id);
+    setJoined(res);
+    if (res) {
+      toast.success(`You have joined the group ${interestGroup.name}!`,
+      {
+				position: "bottom-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "colored",
+			});
+    } else {
+      toast.error(`Unable to join the group ${interestGroup.name}, please try again later!`,
+      {
+				position: "bottom-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "colored",
+			});
+    }
+    setLoading(false);
   }
 
 	// auth
 	return (
 		<>
 		<div className={
-      "h-72 w-96 m-4 flex flex-col overflow-hidden rounded-xl cursor-pointer py-4 px-8 bg-[url('/community.png')] bg-cover bg-center " + (((elem_id % 4) > 1) ? " justify-end" : " justify-start")}
+      "h-40 w-52 xl:h-72 xl:w-96 m-4 flex flex-col overflow-hidden rounded-xl cursor-pointer px-4 xl:py-4 xl:px-8 bg-[url('/community.png')] bg-cover bg-center " + (((elem_id % 4) > 1) ? " justify-end" : " justify-start")}
     onClick={() => set_opened_id(elem_id)}>
-			<div className={"text-6xl w-full mt-4 text-white italic font-bold " + (((elem_id % 2) == 0) ? " text-start" : " text-end")}>
+			<div className={"text-xl xl:text-4xl w-full mt-4 text-white italic font-bold " + (((elem_id % 2) == 0) ? " text-start" : " text-end")}>
 				{interestGroup.name}
 			</div>
 		</div>
@@ -62,10 +94,10 @@ export default function ResultCard(
                     <div className="overflow-hidden rounded-lg h-32 w-32">
                       <img src="/community.png" className="h-full w-full object-cover object-center"/>
                     </div>
-                    <div className="flex flex-col ml-6 text-4xl font-medium leading-6 text-black pt-4">
+                    <div className="flex flex-col ml-6 text-3xl font-medium leading-6 text-black pt-4">
                       <div className="mb-4">{interestGroup.name}</div>
                       <div className="text-base ml-1">
-                      Members: {interestGroup.member_ids ? interestGroup.member_ids.length : 0}</div>
+                      Members: {(interestGroup.member_ids ? interestGroup.member_ids.length : 0) + (joined ? 1 : 0)}</div>
                     </div>
                   </Dialog.Title>
                   <div className="mt-2 flex flex-col text-black">
@@ -79,7 +111,7 @@ export default function ResultCard(
 
                   <div className="mt-4 flex flex-row justify-center">
                   {
-                    (interestGroup.member_ids == undefined) || (interestGroup.member_ids.includes(user_id)) ?
+                    (interestGroup.member_ids == undefined) || (interestGroup.member_ids.includes(user_id)) || joined ?
                     <button
                     disabled
                     type="button"
@@ -89,7 +121,8 @@ export default function ResultCard(
                   </button> :
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-orange-900 px-4 py-2 text-lg font-medium text-white hover:bg-orange-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      disabled={loading}
+                      className="inline-flex disabled:opacity-60 justify-center rounded-md border border-transparent bg-orange-900 px-4 py-2 text-lg font-medium text-white hover:bg-orange-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={requestJoin}
                     >
                       Join

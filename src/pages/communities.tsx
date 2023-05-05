@@ -3,6 +3,7 @@ import Searchbar from "@/components/Searchbar";
 import { API_URL } from "@/utils/constants";
 import { AuthState, useAuth } from "@/utils/firebaseFunctions";
 import { getAllInterestGroups, getGroupsfromGID } from "@/utils/firebaseReadFunctions";
+import { addUserToGroup } from "@/utils/firebaseWriteFunctions";
 import { Group, InterestSearchResult } from "@/utils/types";
 import { Dialog } from "@headlessui/react";
 import { useRouter } from "next/router";
@@ -75,8 +76,13 @@ export default function Communities() {
 	}
 
 	async function joinGroup(group_id: string | undefined, user_id: string) {
-		// TODO
-		return true;
+		if (group_id == undefined) {
+			return false;
+		}
+
+		const status = await addUserToGroup(group_id, user_id);
+
+		return status;
 	}
 
 	return (
@@ -84,7 +90,7 @@ export default function Communities() {
 			<div className="w-11/12 md:w-1/2 mx-auto my-10">
 			<Searchbar searchFunc={searchFunc}/>
 			</div>
-			<div className="grow flex flex-row flex-wrap w-4/5 mx-auto justify-center">
+			<div className="grow flex flex-row flex-wrap w-11/12 h-80 mx-auto justify-center overflow-y-scroll mb-8">
 				{
 					groupResults.map((group: Group, index: number) => {
 						return (
