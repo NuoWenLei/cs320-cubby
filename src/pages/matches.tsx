@@ -18,6 +18,7 @@ export default function Matches() {
 	const [invitations, setInvitations] = useState<Invitation[]>([]);
 	const [groups, setGroups] = useState<GroupMap>({});
 	const [loading, setLoading] = useState<boolean>(true);
+	const [componentLoading, setComponentLoading] = useState<boolean>(false);
 
 	const auth: AuthState = useAuth();
 	const router = useRouter();
@@ -189,7 +190,9 @@ export default function Matches() {
 					invite={invitations[index]}
 					group={getCurrentGroup()}
 					joinGroup={joinGroup}
-					rejectGroup={rejectGroup}/>
+					rejectGroup={rejectGroup}
+					loading={componentLoading}
+					setLoading={setComponentLoading}/>
 					<Matchbar index={index} setIndex={setIndex} items={invitations}/>
 				</div>) : <div className="text-center mx-auto text-2xl lg:text-6xl text-orange-900 w-2/3">You have no more pending matches today, please wait till tomorrow for new matches!</div>
 				}

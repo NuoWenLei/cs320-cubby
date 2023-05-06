@@ -7,13 +7,13 @@ export interface MatchInterfaceProps {
 	group: Group;
 	joinGroup: ((arg1: string | undefined, arg2: string | undefined) => Promise<void>);
 	rejectGroup: ((arg1: string | undefined) => Promise<void>);
+	loading: boolean;
+	setLoading: (arg: boolean) => void;
 }
 
 export default function MatchInterface(
-	{ invite, group, joinGroup, rejectGroup } : MatchInterfaceProps
+	{ invite, group, joinGroup, rejectGroup, loading, setLoading } : MatchInterfaceProps
 ) {
-
-	const [loading, setLoading] = useState<boolean>(false);
 
 	const imageUrl = "https://www.restlesschipotle.com/wp-content/uploads/2022/08/Crispy-Oven-Baked-Chicken-Wings-feat2-500x500.jpg";
 
@@ -92,11 +92,11 @@ export default function MatchInterface(
 					<div className="flex flex-col md:hidden text-md text-center justify-center">
 						<button type="button"
 						disabled={loading}
-						className="disabled:opacity-60 px-3 py-1 bg-orange-900 text-white rounded-md rounded-lg m-2"
+						className="px-3 py-1 bg-orange-900 text-white rounded-md rounded-lg m-2"
 						onClick={requestJoin}>JOIN GROUP</button>
 						<button type="button"
 						disabled={loading}
-						className="disabled:opacity-60 px-3 py-1 bg-rose-700 text-white rounded-md rounded-lg m-2"
+						className="px-3 py-1 bg-rose-700 text-white rounded-md rounded-lg m-2"
 						onClick={requestReject}>DECLINE</button>
 					</div>
 				</div>

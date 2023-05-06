@@ -31,7 +31,6 @@ export default function Sidebar(
 					Communities
 				</button>
 			</div>
-			
 			{
 				items.filter((group: Group) => group.friend_group == friendBar).map((g: Group, i: number) => {
 					return (
