@@ -5,13 +5,16 @@ export default function GroupItem(
 ) {
 	return (
 		<div className={"flex flex-row p-2"}>
-			<div className="h-20 w-20 overflow-hidden rounded-full">
+			<div className={"h-16 w-16 overflow-hidden " + (group.friend_group ? " rounded-full " : " rounded-lg ")}>
 				<img
-				className="h-full, w-full object-cover object-center"
-				src="https://i.pinimg.com/564x/41/ba/a5/41baa5aad410777da19ae9116e7aa086--bear-cubs-baby-bears.jpg"/>
+				className="h-full w-full object-cover object-center"
+				src={group.friend_group ?
+					"/friend_groups.png"
+					: "/community.png"
+				}/>
 			</div>
 			<div className="flex flex-col ml-4 mt-2">
-				<div className="text-orange-900 text-xl">
+				<div className="text-orange-900 text-xl font-bold">
 					{ group.name ? group.name : "No name"}
 				</div>
 				<div className="text-orange-900">

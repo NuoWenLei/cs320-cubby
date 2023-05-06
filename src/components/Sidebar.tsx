@@ -41,8 +41,8 @@ export default function Sidebar(
 						<div
 						key={i}
 						onClick={() => setSelectedGroup(g)}
-						className={"cursor-pointer m-2 mb-3 rounded-md border border-2 "
-						+ (( (selectedGroup?.id ? selectedGroup.id : null) == g.id) ? "border-orange-900" : "border-transparent")}>
+						className={"cursor-pointer m-2 mb-3 rounded-md "
+						+ (( (selectedGroup?.id ? selectedGroup.id : null) == g.id) ? "bg-orange-100" : "bg-transparent")}>
 							<GroupItem group={g}/>
 						</div>
 					)

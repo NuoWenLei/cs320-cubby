@@ -15,8 +15,6 @@ export default function MatchInterface(
 	{ invite, group, joinGroup, rejectGroup, loading, setLoading } : MatchInterfaceProps
 ) {
 
-	const imageUrl = "https://www.restlesschipotle.com/wp-content/uploads/2022/08/Crispy-Oven-Baked-Chicken-Wings-feat2-500x500.jpg";
-
 	const requestJoin = async () => {
 		setLoading(true);
 		await joinGroup(group.id, invite.id);
@@ -30,13 +28,13 @@ export default function MatchInterface(
 	}
 
 	return (
-		<div className="w-full flex flex-row md:px-10 mb-2 xl:mb-4">
+		<div className="w-full flex flex-row mb-1">
 			<div className="hidden md:flex md:flex-col md:basis-1/2">
 				<div className="w-7/12 mx-auto">
-					<div className="overflow-hidden rounded-full mb-4">
+					<div className="overflow-hidden rounded-full mb-4 h-52 w-52 xl:h-96 xl:w-96">
 						<img
 						className="h-full w-full object-cover object-center"
-						src={imageUrl}/>
+						src={"/friend_groups.png"}/>
 					</div>
 					<div className="flex flex-col lg:flex-row justify-center">
 						<button type="button" className="p-2 bg-orange-900 text-white text-center text-xl rounded-lg m-2"
@@ -55,20 +53,20 @@ export default function MatchInterface(
 				</div>
 			</div>
 			<div className="basis-full md:basis-1/2 px-6">
-				<div className="w-full lg:w-11/12 xl:w-7/12 border-2 border-orange-900 text-orange-900 p-3 flex flex-col mx-auto">
-					<div className="text-xl xl:text-3xl w-full text-center">
+				<div className="w-full lg:w-11/12 xl:w-7/12 bg-white text-orange-900 px-8 py-6 rounded-xl flex flex-col">
+					<div className="text-xl xl:text-3xl w-full text-center font-bold">
 						Overview
 					</div>
-					<div className="text-xl xl:text-2xl text-center w-full flex flex-row justify-center">
+					<div className="text-xl text-center w-full flex flex-row justify-center">
 						<span className="hidden sm:flex mr-2">Name: </span> {group.name}	
 					</div>
 					<div className="h-20 w-20 overflow-hidden rounded-full mb-3 mx-auto md:hidden">
 						<img
 						className="h-full w-full object-cover object-center"
-						src={imageUrl}/>
+						src={"/friend_groups.png"}/>
 					</div>
-					<div className="text-xl xl:text-4xl w-full text-center mb-3">
-						<span className="text-4xl xl:text-6xl">{invite.similarity_matched ? ((invite.similarity_matched * 100.).toFixed(1)) : 0.}%</span> match
+					<div className="text-xl xl:text-2xl w-full text-center mb-3">
+						<span className="text-4xl">{invite.similarity_matched ? ((invite.similarity_matched * 100.).toFixed(1)) : 0.}%</span> match
 					</div>
 					<div className="text-xl w-full text-center mb-3">
 						matching distribution

@@ -196,7 +196,7 @@ export default function CreateCommunity() {
 			</div>
 			<div className="w-full md:w-5/6 flex flex-row justify-center md:justify-end">
 				<button type="button"
-				className="bg-orange-900 rounded-lg md:bg-transparent text-white md:text-black font-bold md:font-normal p-2"
+				className="text-2xl bg-orange-900 rounded-lg md:bg-transparent text-white md:text-black font-bold md:font-normal p-2"
 				onClick={sendCreateRequest}>
 				submit community request <TrendingFlatIcon className="hidden md:inline"/>
 				</button>
