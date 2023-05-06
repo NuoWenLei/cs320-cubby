@@ -46,7 +46,7 @@ export default function Communities() {
 	}
 
 	async function getQueryResults(q: string) {
-		const queryUrl = `${API_URL}/friendMatches?q=${q}`;
+		const queryUrl = `${API_URL}/interestSearch?q=${q}`;
 		return await fetch(queryUrl, {
 			method: "GET",
 			headers: {
@@ -59,7 +59,9 @@ export default function Communities() {
 		const response = await getQueryResults(q);
 		if (response.status == 200) {
 			const results: InterestSearchResult = await response.json();
+			console.log(results);
 			const interestGroups: Group[] = await getGroupsfromGID(results.ordered_ids);
+			console.log(interestGroups);
 			setGroupResults(interestGroups);
 		} else {
 			toast.error("API query error, please check your network!",

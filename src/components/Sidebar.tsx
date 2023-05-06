@@ -3,13 +3,13 @@ import GroupItem from "./GroupItem";
 import { useState } from "react";
 
 interface SidebarProps {
-	index: number | undefined;
-	setIndex: (arg: number | undefined) => void;
+	selectedGroup: Group | undefined;
+	setSelectedGroup: (arg: Group | undefined) => void;
 	items: Group[]
 }
 
 export default function Sidebar(
-	{ index, setIndex, items } : SidebarProps
+	{ selectedGroup, setSelectedGroup, items } : SidebarProps
 ) {
 
 	const [friendBar, setFriendBar] = useState<boolean>(true);
@@ -20,13 +20,17 @@ export default function Sidebar(
 				Groups
 			</div>
 			<div className="flex flex-row w-full text-white justify-around">
-				<button type="button" className={"p-2 m-2 rounded-full border border-2 border-orange-900 "
-				+ ((friendBar) ? "bg-orange-900" : "bg-transparent")}
-				onClick={() => setFriendBar(true)}>
+				<button type="button" className={"p-2 m-2 rounded-full "
+				+ ((friendBar) ? "bg-orange-700" : "bg-orange-900")}
+				onClick={() => 
+				{
+					setFriendBar(true)
+
+				}}>
 					Friend Groups
 				</button>
-				<button type="button" className={"p-2 m-2 rounded-full border border-2 border-orange-900 "
-				+ ((!friendBar) ? "bg-orange-900" : "bg-transparent")}
+				<button type="button" className={"p-2 m-2 rounded-full  "
+				+ ((!friendBar) ? "bg-orange-700" : "bg-orange-900")}
 				onClick={() => setFriendBar(false)}>
 					Communities
 				</button>
@@ -36,9 +40,9 @@ export default function Sidebar(
 					return (
 						<div
 						key={i}
-						onClick={() => setIndex(i)}
+						onClick={() => setSelectedGroup(g)}
 						className={"cursor-pointer m-2 mb-3 rounded-md border border-2 "
-						+ ((index == i) ? "border-orange-900" : "border-transparent")}>
+						+ (( (selectedGroup?.id ? selectedGroup.id : null) == g.id) ? "border-orange-900" : "border-transparent")}>
 							<GroupItem group={g}/>
 						</div>
 					)
