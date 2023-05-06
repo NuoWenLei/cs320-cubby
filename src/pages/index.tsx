@@ -5,9 +5,9 @@ export default function Home() {
   const auth: AuthState = useAuth();
   return (
     <main className={"grow flex flex-col justify-center "}>
-      <div className="text-orange-900 font-semibold text-4xl mx-auto mb-6 italic">
+      {/* <div className="text-orange-900 font-semibold text-4xl mx-auto mb-6 italic">
         WELCOME TO CUBBY
-      </div>
+      </div> */}
       <div className="h-1/2 w-1/2 mx-auto mb-3">
         <img
           src="/imgs/CubbyBearWithLogo.png"
