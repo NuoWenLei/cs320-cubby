@@ -8,11 +8,27 @@ interface GroupInterfaceProps {
 export default function GroupInterface(
 	{ group, userMap } : GroupInterfaceProps
 ) {
+
+	function isValidHttpUrl(string: string) {
+		// https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+		let url;
+		
+		try {
+		  url = new URL(string);
+		} catch (_) {
+		  return false;  
+		}
+	  
+		return url.protocol === "http:" || url.protocol === "https:";
+	  }
+
 	return (
 		<div className="flex flex-col h-full m-20">
-			<div className="text-4xl mb-3 mx-auto">
+			<div className="text-4xl mb-3 mx-auto font-bold">
 				{group.name}
 			</div>
+			{group.friend_group ?
+			<>
 			<div className="text-2xl w-full text-center mb-3">
 						Matching Distribution
 			</div>
@@ -32,6 +48,23 @@ export default function GroupInterface(
 						)
 				}
 			</div>
+			</>
+			 :
+			 <>
+			 {
+				isValidHttpUrl(group.interest_group_info?.community_link ? group.interest_group_info.community_link : "") ?
+				<div className="text-2xl w-full text-center mb-3">
+					<a href={group.interest_group_info?.community_link ? group.interest_group_info.community_link : "#"} className="text-blue-600 w-full" target="_blank">
+						Community Link
+					</a>
+				</div> : 
+				<div className="text-2xl w-full text-center mb-3">
+					No Community Link
+				</div>
+			 }
+
+			 </>
+			}
 			<div className="text-2xl mb-3 mx-auto">
 				Members:
 			</div>
@@ -49,7 +82,7 @@ export default function GroupInterface(
 						<div className="h-20 w-20 overflow-hidden rounded-full">
 							<img
 							className="h-full, w-full object-cover object-center"
-							src="https://beyondsweetandsavory.com/wp-content/uploads/2022/02/Korean-fried-chicken-wings-VyTran-7.jpg"/>
+							src="/profile.png"/>
 						</div>
 						<div className="flex flex-col ml-4 mt-2">
 							<div className="text-orange-900 text-xl">

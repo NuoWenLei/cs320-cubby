@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 export default function Group() {
 	const [groups, setGroups] = useState<Group[]>([]);
 	const [userMap, setUserMap] = useState<{[key: string]: User}>({});
-	const [index, setIndex] = useState<number | undefined>(undefined);
 	const [selectedGroup, setSelectedGroup] = useState<Group | undefined>(undefined);
 
 	const auth: AuthState = useAuth();
@@ -48,14 +47,14 @@ export default function Group() {
 	}
 
 	return (
-		<main className={"grow flex flex-row divide-x-2 divide-orange-800"}>
+		<main className={"grow flex flex-row"}>
 			<div className="flex flex-col basis-1/4">
 				{
 					groups.length > 0 ?
 					<Sidebar selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} items={groups}/> : null
 				}
 			</div>
-			<div className="basis-3/4 flex flex-col text-orange-900">
+			<div className="basis-3/4 flex flex-col text-orange-900 bg-white">
 				{
 					selectedGroup != undefined ?
 					<GroupInterface group={selectedGroup} userMap={userMap}/> : null

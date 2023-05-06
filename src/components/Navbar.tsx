@@ -132,7 +132,7 @@ export default function Navbar() {
                     <div className="h-8 w-8 overflow-hidden">
                     <img
 										  className="h-full w-full rounded-full object-cover"
-										  src="https://www.budgetbytes.com/wp-content/uploads/2023/01/Air-Fryer-Chicken-Wings-plate.jpg"
+										  src="/profile.png"
 										  alt=""
 										/>
                     </div>

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/router';
 import { Inter } from 'next/font/google';
+
  
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({ subsets: ['latin'] });
@@ -24,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div
         className={
           "h-screen flex flex-col overflow-y-scroll " +
-          inter.className +
+          inter.className + 
           (router.pathname == "/groups" ? " divide-y-2 divide-orange-800" : "") +
           (router.pathname == "/" ? " bg-regal-orange " : " bg-orange-50 ")
         }

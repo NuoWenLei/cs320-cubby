@@ -7,7 +7,7 @@ import randomname
 import numpy as np
 
 def get_random_group_name() -> str:
-	return randomname.get_name(sep = " ")
+	return randomname.get_name(sep = " ").title()
 
 def extract_text_ids(docs: List[UserDoc], question_order: List[str]) -> Tuple[np.ndarray, List[List[str]]]:
 	"""
