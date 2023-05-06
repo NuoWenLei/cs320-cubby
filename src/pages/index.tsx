@@ -8,12 +8,13 @@ export default function Home() {
       {/* <div className="text-orange-900 font-semibold text-4xl mx-auto mb-6 italic">
         WELCOME TO CUBBY
       </div> */}
-      <div className="h-1/2 w-1/2 mx-auto mb-3">
-        <img
+      <img
           src="/imgs/CubbyBearWithLogo.png"
-          className="h-full w-full object-cover object-center"
+          className="w-1/2 mx-auto mb-3 object-cover object-center"
         />
-      </div>
+      {/* <div className="h-1/2 w-1/2 mx-auto mb-3 overflow-visible">
+        
+      </div> */}
       <div className="mx-auto text-orange-900 text-lg">
         {auth.isAuthenticated ? (
           <Link href="/matches">
