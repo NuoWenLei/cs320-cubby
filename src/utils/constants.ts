@@ -14,4 +14,4 @@ export type QuestionWithExamples = {
 	example: string;
 }
 
-export const API_URL = "http://139.144.57.146:8000";
+export const API_URL = "https://cubbyapi.com";
