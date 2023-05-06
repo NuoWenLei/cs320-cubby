@@ -11,6 +11,7 @@ export default function Group() {
 	const [groups, setGroups] = useState<Group[]>([]);
 	const [userMap, setUserMap] = useState<{[key: string]: User}>({});
 	const [index, setIndex] = useState<number | undefined>(undefined);
+	const [selectedGroup, setSelectedGroup] = useState<Group | undefined>(undefined);
 
 	const auth: AuthState = useAuth();
 	const router = useRouter();
@@ -51,13 +52,13 @@ export default function Group() {
 			<div className="flex flex-col basis-1/4">
 				{
 					groups.length > 0 ?
-					<Sidebar index={index} setIndex={setIndex} items={groups}/> : null
+					<Sidebar selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} items={groups}/> : null
 				}
 			</div>
 			<div className="basis-3/4 flex flex-col text-orange-900">
 				{
-					index != undefined ?
-					<GroupInterface group={groups[index]} userMap={userMap}/> : null
+					selectedGroup != undefined ?
+					<GroupInterface group={selectedGroup} userMap={userMap}/> : null
 				}
 			</div>
 		</main>
