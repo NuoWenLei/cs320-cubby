@@ -13,9 +13,15 @@ export async function getUserData(userId: string): Promise<User | null> {
     const docRef = doc(firestore, "users", userId);
     const snapshot = await getDoc(docRef);
     if (!snapshot.exists()) {
+      console.log("user not found");
       return null;
     }
-    return firebaseUserToUser(snapshot.data(), userId);
+    const userSnapshot = snapshot.data();
+
+    /** Converts user snapshot from Firebase to User type. */
+    userSnapshot["id"] = userId;
+    console.log(userSnapshot);
+    return userSnapshot;
   } catch (error) {
     console.error("Error fetching user data: ", error);
     return null;
