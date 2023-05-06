@@ -2,13 +2,14 @@ import { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchbarProp {
-	searchFunc: (q: string) => Promise<void>
+	searchFunc: (q: string) => Promise<void>;
+	inputState: string;
+	setInputState: (arg: string) => void;
 }
 
 export default function Searchbar(
-	{ searchFunc } : SearchbarProp
+	{ searchFunc, inputState, setInputState } : SearchbarProp
 ) {
-	const [inputState, setInputState] = useState<string>("");
 	return (
 		<div className="w-full h-full flex flex-row bg-white rounded-full border-2 border-orange-900 text-xl overflow-hidden">
 			<SearchIcon className="mx-3 my-auto"/>

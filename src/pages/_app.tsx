@@ -23,9 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <div
         className={
-          "h-screen flex flex-col bg-regal-orange overflow-y-scroll " +
+          "h-screen flex flex-col overflow-y-scroll " +
           inter.className +
-          (router.pathname == "/groups" ? " divide-y-2 divide-orange-800" : "")
+          (router.pathname == "/groups" ? " divide-y-2 divide-orange-800" : "") +
+          (router.pathname == "/" ? " bg-regal-orange " : " bg-orange-50 ")
         }
       >
         <Navbar />

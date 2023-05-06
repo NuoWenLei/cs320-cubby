@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 export default function Communities() {
 	const [groupResults, setGroupResults] = useState<Group[]>([]);
 	const [openedId, setOpenedId] = useState<number>(-1);
+	const [inputState, setInputState] = useState<string>("");
 
 	const auth: AuthState = useAuth();
 	const router = useRouter();
@@ -88,7 +89,7 @@ export default function Communities() {
 	return (
 		<main className={"grow flex flex-col justify-center text-orange-900"}>
 			<div className="w-11/12 md:w-1/2 mx-auto my-10">
-			<Searchbar searchFunc={searchFunc}/>
+			<Searchbar searchFunc={searchFunc} inputState={inputState} setInputState={setInputState}/>
 			</div>
 			<div className="grow flex flex-row flex-wrap w-11/12 h-80 mx-auto justify-center overflow-y-scroll mb-8">
 				{
