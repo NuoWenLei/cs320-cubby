@@ -1,4 +1,5 @@
 ### Project name: Cubby
+### Github link: https://github.com/NuoWenLei/cs320-cubby.git
 ## Team members (include cs logins) and division of labor;
 - Nuo Wen Lei (nlei), React frontend, backend, testing
 - Ava Wang (zwang200) frontend design, testing
@@ -67,7 +68,7 @@ This endpoint generates a number of mock users with random interests and persona
 
 ### How to run..
 #### Tests
-- To run the tests on the back end, activate the cubby environment any type pytest.
+- To run the tests on the back end, activate the cubby environment and type pytest.
 - To run frontend tests, do npm test
 #### Frontend:
 ```bash
