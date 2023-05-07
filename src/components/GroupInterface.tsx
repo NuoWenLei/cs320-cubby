@@ -78,17 +78,17 @@ export default function GroupInterface(
 								<></>
 							)
 						}
-						return (<div className={"flex flex-row p-2 justify-center w-full"} key={user_id}>
+						return (<div className={"flex flex-row p-2 justify-start w-5/6 lg:w-4/5 xl:w-2/3 lg:ml-auto overflow-x-hidden"} key={user_id}>
 						<div className="hidden md:flex h-20 w-20 overflow-hidden rounded-full">
 							<img
 							className="h-full, w-full object-cover object-center"
 							src="/profile.png"/>
 						</div>
-						<div className="flex flex-col ml-4 mt-2">
+						<div className="flex flex-col ml-4 mt-2 w-24 md:w-60 lg:w-fit">
 							<div className="text-orange-900 text-base md:text-xl">
 								{ user.name ? user.name : "Anonymous"}
 							</div>
-							<div className="text-orange-900 text-sm md:text-base">
+							<div className="text-orange-900 text-sm md:text-base overflow-x-hidden text-ellipsis">
 								{ user.email ? user.email : "No email"}
 							</div>
 						</div>
