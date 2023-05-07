@@ -24,21 +24,21 @@ export default function GroupInterface(
 
 	return (
 		<div className="flex flex-col h-full m-20">
-			<div className="text-4xl mb-3 mx-auto font-bold">
+			<div className="text-xl md:text-4xl mb-3 mx-auto font-bold text-center">
 				{group.name}
 			</div>
 			{group.friend_group ?
 			<>
-			<div className="text-2xl w-full text-center mb-3">
+			<div className="text-lg md:text-2xl w-full text-center mb-3">
 						Matching Distribution
 			</div>
-			<div className="text-md text-xl text-center flex flex-row flex-wrap justify-center mb-4 w-1/3 mx-auto">
+			<div className="text-md md:text-xl text-center flex flex-row flex-wrap justify-center mb-4 w-1/3 mx-auto">
 				{
 					group.feature_dist ? (group.feature_dist.map((percent: number, i: number) => {
 						return (
 						<>
-							<div key={"expanded-" + i} className="mr-4 min-[423px]:flex hidden lg:mx-auto"> Question {i + 1}: {(percent * 100.).toFixed(1)}%</div>
-							<div key={"minimized-" + i} className="mr-4 flex min-[423px]:hidden"> Q{i + 1}: {(percent * 100.).toFixed(1)}%</div>
+							<div key={"expanded-" + i} className="mr-4 md:flex hidden lg:mx-auto"> Question {i + 1}: {(percent * 100.).toFixed(1)}%</div>
+							<div key={"minimized-" + i} className="mr-4 flex md:hidden"> Q{i + 1}: {(percent * 100.).toFixed(1)}%</div>
 						</>
 						)
 					})) : (
@@ -53,22 +53,22 @@ export default function GroupInterface(
 			 <>
 			 {
 				isValidHttpUrl(group.interest_group_info?.community_link ? group.interest_group_info.community_link : "") ?
-				<div className="text-2xl w-full text-center mb-3">
+				<div className="text-lg md:text-2xl w-full text-center mb-3">
 					<a href={group.interest_group_info?.community_link ? group.interest_group_info.community_link : "#"} className="text-blue-600 w-full" target="_blank">
 						Community Link
 					</a>
 				</div> : 
-				<div className="text-2xl w-full text-center mb-3">
+				<div className="text-lg md:text-2xl w-full text-center mb-3">
 					No Community Link
 				</div>
 			 }
 
 			 </>
 			}
-			<div className="text-2xl mb-3 mx-auto">
+			<div className="text-lg md:text-2xl mb-3 mx-auto">
 				Members:
 			</div>
-			<div className="flex flex-col mx-auto">
+			<div className="flex flex-col w-full">
 				{
 					group.member_ids == undefined ? "None" :
 					group.member_ids.map((user_id: string) => {
@@ -78,17 +78,17 @@ export default function GroupInterface(
 								<></>
 							)
 						}
-						return (<div className={"flex flex-row p-2"} key={user_id}>
-						<div className="h-20 w-20 overflow-hidden rounded-full">
+						return (<div className={"flex flex-row p-2 justify-center w-full"} key={user_id}>
+						<div className="hidden md:flex h-20 w-20 overflow-hidden rounded-full">
 							<img
 							className="h-full, w-full object-cover object-center"
 							src="/profile.png"/>
 						</div>
 						<div className="flex flex-col ml-4 mt-2">
-							<div className="text-orange-900 text-xl">
+							<div className="text-orange-900 text-base md:text-xl">
 								{ user.name ? user.name : "Anonymous"}
 							</div>
-							<div className="text-orange-900">
+							<div className="text-orange-900 text-sm md:text-base">
 								{ user.email ? user.email : "No email"}
 							</div>
 						</div>

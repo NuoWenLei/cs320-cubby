@@ -48,13 +48,13 @@ export default function Group() {
 
 	return (
 		<main className={"grow flex flex-row"}>
-			<div className="flex flex-col basis-1/4">
+			<div className="flex flex-col w-1/4">
 				{
 					groups.length > 0 ?
 					<Sidebar selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} items={groups}/> : null
 				}
 			</div>
-			<div className="basis-3/4 flex flex-col text-orange-900 bg-white">
+			<div className="w-3/4 flex flex-col text-orange-900 bg-white">
 				{
 					selectedGroup != undefined ?
 					<GroupInterface group={selectedGroup} userMap={userMap}/> : null
