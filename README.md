@@ -1,9 +1,9 @@
 # Cubby
 ### Github link: https://github.com/NuoWenLei/cs320-cubby.git
 ## Team members (include cs logins) and division of labor;
-- Nuo Wen Lei (nlei), React frontend, backend, testing
-- Ava Wang (zwang200) frontend design, testing
-- Seung-Heon Dave Song(ssong43), Frontend design, backend, testing 
+- Nuo Wen Lei (nlei): React frontend, backend, testing
+- Ava Wang (zwang200): frontend design, testing
+- Seung-Heon Dave Song(ssong43): Frontend design, backend, testing 
 - Muhiim Ali (mali37): backend, testing
 ## Include the total estimated time it took to complete the project:
 3 weeks
@@ -13,7 +13,8 @@ During college, there are very few times or places for people to branch out and 
 ## Design choices -- high-level design of your program
 ### Frontend Pages:
 
-- `signup.tsx`: This file contains the React component that renders the sign-up page, where users can enter their name, answer a set of questions and sign up using their Google account
+- `index.tsx`: This file contains the landing page.
+- `signup.tsx`: This file contains the React component that renders the sign-up page, where users can enter their name, answer a set of questions and sign up using their Google account.
 - `profile.tsx`: This is the profile page of the user. It is responsible for rendering and updating the user's profile information, including their name and answers to a set of predefined questions.
 - `groups.tsx`: displays a user's groups and the members of each group using Firebase functions. The component uses the following sub-components:
   - `GroupInterface`: Displays the selected group and its members
