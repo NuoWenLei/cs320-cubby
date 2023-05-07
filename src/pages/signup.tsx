@@ -19,6 +19,7 @@ export default function Signup() {
 		setAnswerMap(map);
 	}
 
+
 	function emptinessCheck() {
 		let valid = true;
 		for (var question of questions) {
