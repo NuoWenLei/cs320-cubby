@@ -58,27 +58,26 @@ export default function Communities() {
 
 	async function searchFunc(q: string) {
 		setLoading(true);
-		const response = await getQueryResults(q);
-		if (response.status == 200) {
-			const results: InterestSearchResult = await response.json();
-			console.log(results);
-			const interestGroups: Group[] = await getGroupsfromGID(results.ordered_ids);
-			console.log(interestGroups);
-			setGroupResults(interestGroups);
-		} else {
-			toast.error("API query error, please check your network!",
-			{
-				position: "bottom-left",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "colored",
+		getQueryResults(q).then(res => res.json()).then(
+			async (results: InterestSearchResult) => {
+				const interestGroups: Group[] = await getGroupsfromGID(results.ordered_ids);
+				setGroupResults(interestGroups);
+				setLoading(false);
 			})
-		}
-		setLoading(false);
+			.catch((_) => {
+				toast.error("API query error, please check your network!",
+				{
+					position: "bottom-left",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "colored",
+				})
+				setLoading(false);
+			});
 	}
 
 	async function joinGroup(group_id: string | undefined, user_id: string) {

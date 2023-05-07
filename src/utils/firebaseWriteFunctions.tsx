@@ -44,7 +44,7 @@ export async function changeInvitationStatus(invitation_id: string, status: stri
 
 export async function addInterestGroupApplication(interestGroup: Group): Promise<string | boolean> {
 	try {
-		const newRef = await addDoc(collection(firestore, "interest_group_apps"), interestGroup);
+		const newRef = await addDoc(collection(firestore, "groups"), interestGroup);
 		return newRef.id;
 	} catch (_) {
 		return false;
