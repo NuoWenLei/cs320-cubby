@@ -86,7 +86,7 @@ export default function CreateCommunity() {
 		map["founder_id"] = user_id
 		map["friend_group"] = false;
 		map["interest_group_info"] = {...answerMap}
-		map["member_ids"] = ["init"]
+		map["member_ids"] = [user_id]
 		return map;
 	}
 
