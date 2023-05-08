@@ -30,7 +30,7 @@ export default function Sidebar(
 					<span className="hidden md:inline">Friend Groups</span>
 					<span className="md:hidden">Friends</span>
 				</button>
-				<button type="button" className={"p-2 m-2 rounded-full  "
+				<button type="button" className={"p-2 m-2 rounded-full truncate "
 				+ ((!friendBar) ? "bg-orange-700" : "bg-orange-900")}
 				onClick={() => setFriendBar(false)}>
 					Communities
