@@ -13,7 +13,8 @@ describe('GroupInterface Render', () => {
 				member_ids: [],
 				name: "open similarity"
 			},
-			userMap: {}
+			userMap: {},
+			leaveGroup: async (arg1: string | undefined, arg2: string | undefined) => {}
 	}));
 	
 	const searchText = await screen.findByText("open similarity");
