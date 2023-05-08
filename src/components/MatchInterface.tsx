@@ -72,8 +72,8 @@ export default function MatchInterface(
 					{/* <div className="text-xl xl:text-3xl w-full text-center font-bold">
 						Overview
 					</div> */}
-					<div className="lg:hidden text-2xl w-full flex flex-row justify-center font-semibold mb-3">
-						{group.name}	
+					<div className="text-center lg:hidden text-2xl w-full flex flex-row justify-center font-semibold mb-3">
+						{group.name}
 					</div>
 					<div className="h-20 w-20 overflow-hidden rounded-full mb-3 mx-auto md:hidden">
 						<img
