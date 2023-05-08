@@ -29,36 +29,51 @@ export default function MatchInterface(
 
 	return (
 		<div className="w-full flex flex-row mb-1">
-			<div className="hidden md:flex md:flex-col md:basis-1/2">
-				<div className="w-7/12 mx-auto">
-					<div className="overflow-hidden rounded-full mb-4 h-52 w-52 xl:h-96 xl:w-96">
-						<img
-						className="h-full w-full object-cover object-center"
-						src={"/friend_groups.png"}/>
-					</div>
-					<div className="flex flex-col lg:flex-row justify-center">
-						<button type="button" className="p-2 bg-orange-900 text-white text-center text-xl rounded-lg m-2"
-						onClick={
-							() => {
-								joinGroup(group.id, invite.id)
-							}
-						}>JOIN GROUP</button>
-						<button type="button" className="p-2 bg-rose-700 text-white text-center text-xl rounded-lg m-2"
-						onClick={
-							() => {
-								rejectGroup(invite.id)
-							}
-						}>DECLINE</button>
-					</div>
+			<div className="hidden md:flex md:flex-col md:w-5/12">
+				<div className="overflow-hidden rounded-full mb-4 h-52 w-52 lg:h-80 lg:w-80 xl:h-96 xl:w-96 mx-auto">
+					<img
+					className="h-full w-full object-cover object-center"
+					src={"/friend_groups.png"}/>
+				</div>
+				<button type="button" className="lg:hidden p-2 bg-rose-700 hover:bg-rose-600 text-white text-center text-xl rounded-lg m-2 font-semibold"
+				onClick={
+					() => {
+						joinGroup(group.id, invite.id)
+					}
+				}>Join</button>
+				<button type="button" className="lg:hidden p-2 bg-zinc-400 hover:bg-zinc-300 text-white text-center text-xl rounded-lg m-2 font-semibold"
+				onClick={
+					() => {
+						rejectGroup(invite.id)
+					}
+				}>Skip</button>
+			</div>
+			<div className="hidden lg:flex flex-col justify-center md:w-3/12 italic">
+				<div className="mx-4 text-4xl xl:text-6xl text-orange-900 font-semibold my-2 overflow-hidden text-ellipsis">
+					{group.name}
+				</div>
+				<div className="flex flex-row justify-center">
+					<button type="button" className="p-2 px-6 xl:px-14 bg-rose-700 hover:bg-rose-600 text-white text-center text-xl rounded-full m-2 font-semibold"
+					onClick={
+						() => {
+							joinGroup(group.id, invite.id)
+						}
+					}>Join</button>
+					<button type="button" className="p-2 px-6 xl:px-14 bg-zinc-400 hover:bg-zinc-300 text-white text-center text-xl rounded-full m-2 font-semibold"
+					onClick={
+						() => {
+							rejectGroup(invite.id)
+						}
+					}>Skip</button>
 				</div>
 			</div>
-			<div className="basis-full md:basis-1/2 px-6">
-				<div className="w-full lg:w-11/12 xl:w-7/12 bg-white text-orange-900 px-8 py-6 rounded-xl flex flex-col">
-					<div className="text-xl xl:text-3xl w-full text-center font-bold">
+			<div className="w-full md:w-7/12 lg:w-4/12 px-6 italic ml-auto">
+				<div className="w-full bg-white text-orange-900 px-8 py-6 rounded-xl flex flex-col">
+					{/* <div className="text-xl xl:text-3xl w-full text-center font-bold">
 						Overview
-					</div>
-					<div className="text-xl text-center w-full flex flex-row justify-center">
-						<span className="hidden sm:flex mr-2">Name: </span> {group.name}	
+					</div> */}
+					<div className="lg:hidden text-2xl w-full flex flex-row justify-center font-semibold mb-3">
+						{group.name}	
 					</div>
 					<div className="h-20 w-20 overflow-hidden rounded-full mb-3 mx-auto md:hidden">
 						<img
@@ -66,10 +81,10 @@ export default function MatchInterface(
 						src={"/friend_groups.png"}/>
 					</div>
 					<div className="text-xl xl:text-2xl w-full text-center mb-3">
-						<span className="text-4xl">{invite.similarity_matched ? ((invite.similarity_matched * 100.).toFixed(1)) : 0.}%</span> match
+						<span className="text-3xl xl:text-4xl font-bold">{invite.similarity_matched ? ((invite.similarity_matched * 100.).toFixed(1)) : 0.}%</span> MATCH
 					</div>
-					<div className="text-xl w-full text-center mb-3">
-						matching distribution
+					<div className="text-xl w-full text-center mb-3 font-semibold">
+						match details
 					</div>
 					<div className="text-md xl:text-lg w-full text-center flex flex-row flex-wrap lg:flex-col lg:flex-nowrap justify-center mb-3 md:mb-0">
 						{
@@ -90,12 +105,12 @@ export default function MatchInterface(
 					<div className="flex flex-col md:hidden text-md text-center justify-center">
 						<button type="button"
 						disabled={loading}
-						className="px-3 py-1 bg-orange-900 text-white rounded-md rounded-lg m-2"
-						onClick={requestJoin}>JOIN GROUP</button>
+						className="px-3 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded-md rounded-lg m-2 font-semibold"
+						onClick={requestJoin}>Join</button>
 						<button type="button"
 						disabled={loading}
-						className="px-3 py-1 bg-rose-700 text-white rounded-md rounded-lg m-2"
-						onClick={requestReject}>DECLINE</button>
+						className="px-3 py-1 bg-zinc-400 hover:bg-zinc-300 text-white rounded-md rounded-lg m-2 font-semibold"
+						onClick={requestReject}>Skip</button>
 					</div>
 				</div>
 			</div>
