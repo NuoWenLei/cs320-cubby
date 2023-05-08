@@ -2,11 +2,12 @@ import { Group, User } from "@/utils/types";
 
 interface GroupInterfaceProps {
 	group: Group;
-	userMap: {[key: string]: User}
+	userMap: {[key: string]: User};
+	leaveGroup: (groupId: string | undefined, groupName: string | undefined) => Promise<void>;
 }
 
 export default function GroupInterface(
-	{ group, userMap } : GroupInterfaceProps
+	{ group, userMap, leaveGroup } : GroupInterfaceProps
 ) {
 
 	function isValidHttpUrl(string: string) {
@@ -68,7 +69,7 @@ export default function GroupInterface(
 			<div className="text-lg md:text-2xl mb-3 mx-auto">
 				Members:
 			</div>
-			<div className="flex flex-col w-full">
+			<div className="flex flex-col w-full mb-6">
 				{
 					group.member_ids == undefined ? "None" :
 					group.member_ids.map((user_id: string) => {
@@ -95,6 +96,13 @@ export default function GroupInterface(
 					</div>)
 					})
 				}
+			</div>
+			<div className="flex flex-row justify-center w-full">
+				<button type="button"
+				className="px-4 py-2 bg-rose-700 text-white text-center text-xl rounded-lg"
+				onClick={() => leaveGroup(group.id, group.name)}>
+					LEAVE
+				</button>
 			</div>
 		</div>
 	)

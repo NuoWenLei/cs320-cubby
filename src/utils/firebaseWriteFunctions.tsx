@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayRemove, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
 import { Group, User } from "./types";
 import { firestore } from "./firebaseConfig";
 
@@ -46,6 +46,18 @@ export async function addInterestGroupApplication(interestGroup: Group): Promise
 	try {
 		const newRef = await addDoc(collection(firestore, "groups"), interestGroup);
 		return newRef.id;
+	} catch (_) {
+		return false;
+	}
+}
+
+export async function userLeaveGroup(userId: string, groupId: string): Promise<boolean> {
+	const groupRef = doc(firestore, "groups", groupId);
+	try {
+		await updateDoc(groupRef, {
+			member_ids: arrayRemove(userId)
+		});
+		return true;
 	} catch (_) {
 		return false;
 	}
