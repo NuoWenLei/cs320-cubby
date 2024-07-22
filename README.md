@@ -2,7 +2,7 @@
 ## Links:
 ### Github link: https://github.com/NuoWenLei/cs320-cubby.git
 ### Website link: https://cs320-cubby.vercel.app/
-### Web API documentation link: https://cubbyapi.com/docs
+### Web API documentation link (DEPRICATED): https://cubbyapi.com/docs
 ## Team members (include cs logins) and division of labor;
 - Nuo Wen Lei (nlei): React frontend, backend, testing
 - Ava Wang (zwang200): frontend design, testing
